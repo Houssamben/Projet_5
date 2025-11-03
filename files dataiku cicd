@@ -1,0 +1,156 @@
+What You Need to Know First
+🔹 What Are Macros in Dataiku?
+
+Macros are Python scripts packaged in a plugin that automate tasks.
+They can be run manually, in scenarios, or triggered externally (e.g., via GitLab).
+Each macro has:
+
+runnable.py: the Python logic.
+runnable.json: metadata and parameters.
+
+
+api-deployment-plugin/
+├── plugin.json
+├── python-runnables/
+│   ├── package-api/
+│   │   ├── runnable.py
+│   │   └── runnable.json
+│   └── deploy-api/
+│       ├── runnable.py
+│       └── runnable.json
+
+Macro 1: Package & Publish API
+runnable.py
+
+from dataiku.runnables import Runnable
+import dataikuapi
+
+class PackageAndPublishAPI(Runnable):
+    def __init__(self, project_key, config, plugin_config):
+        self.project_key = project_key
+        self.config = config
+
+    def run(self, progress_callback):
+        client = dataikuapi.DSSClient(self.config["design_node_url"], self.config["api_key"])
+        service = client.get_project(self.project_key).get_api_service(self.config["service_id"])
+        
+        # Create a new version
+        version_id = service.create_version()
+        
+        # Publish to API Deployer
+        service.publish_package(version_id)
+        
+        return f"Packaged and published version: {version_id}"
+
+
+runnable.json:
+{
+  "meta": {
+    "label": "Package & Publish API",
+    "description": "Creates and publishes a version of the API service",
+    "icon": "icon-cube"
+  },
+  "params": [
+    { "name": "design_node_url", "label": "Design Node URL", "type": "STRING" },
+    { "name": "api_key", "label": "API Key", "type": "STRING" },
+    { "name": "service_id", "label": "API Service ID", "type": "STRING" }
+  ],
+  "resultType": "STRING"
+}
+
+Macro 2: Deploy API Version
+
+runnable.py
+
+from dataiku.runnables import Runnable
+import dataikuapi
+
+class DeployAPI(Runnable):
+    def __init__(self, project_key, config, plugin_config):
+        self.project_key = project_key
+        self.config = config
+
+    def run(self, progress_callback):
+        client = dataikuapi.DSSClient(self.config["design_node_url"], self.config["api_key"])
+        deployer = client.get_apideployer()
+        
+        # Create deployment
+        deployment = deployer.create_deployment(
+            deployment_id=self.config["deployment_id"],
+            service_id=self.config["service_id"],
+            infra_id=self.config["infra_id"],
+            version=self.config["version_id"]
+        )
+        
+        # Start deployment
+        deployment.start_update()
+        
+        return f"Deployed version {self.config['version_id']} to infrastructure {self.config['infra_id']}"
+
+
+runnable.json
+
+{
+  "meta": {
+    "label": "Deploy API Version",
+    "description": "Deploys a published API version to an infrastructure",
+    "icon": "icon-rocket"
+  },
+  "params": [
+    { "name": "design_node_url", "label": "Design Node URL", "type": "STRING" },
+    { "name": "api_key", "label": "API Key", "type": "STRING" },
+    { "name": "service_id", "label": "API Service ID", "type": "STRING" },
+    { "name": "version_id", "label": "Version ID", "type": "STRING" },
+    { "name": "infra_id", "label": "Infrastructure ID", "type": "STRING" },
+    { "name": "deployment_id", "label": "Deployment ID", "type": "STRING" }
+  ],
+  "resultType": "STRING"
+}
+
+
+Step 2: Integrate with GitLab CI/CD
+Example .gitlab-ci.yml
+
+stages:
+  - package
+  - deploy
+package_api:
+  stage: package
+  script:
+    - python scripts/package_api.py
+
+deploy_api:
+  stage: deploy
+  script:
+    - python scripts/deploy_api.py
+
+
+scripts/package_api.py
+
+from dataikuapi import DSSClient
+
+client = DSSClient("http://your-design-node:port", "your-api-key")
+project = client.get_project("YOUR_PROJECT_KEY")
+macro = project.get_macro("api-deployment-plugin.package-api")
+macro.run(params={
+    "design_node_url": "http://your-design-node:port",
+    "api_key": "your-api-key",
+    "service_id": "your-service-id"
+})
+
+scripts/deploy_api.py
+
+from dataikuapi import DSSClient
+
+client = DSSClient("http://your-design-node:port", "your-api-key")
+project = client.get_project("YOUR_PROJECT_KEY")
+macro = project.get_macro("api-deployment-plugin.deploy-api")
+macro.run(params={
+    "design_node_url": "http://your-design-node:port",
+    "api_key": "your-api-key",
+    "service_id": "your-service-id",
+    "version_id": "your-version-id",
+    "infra_id": "your-infra-id",
+    "deployment_id": "your-deployment-id"
+})
+
