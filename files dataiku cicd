@@ -154,3 +154,31 @@ macro.run(params={
     "deployment_id": "your-deployment-id"
 })
 
+
+
+
+
+
+code : 
+
+
+def get_object_fields(obj):
+    fields = []
+    for attr in dir(obj):
+        if not attr.startswith("_"):  # Skip private/internal attributes
+            try:
+                value = getattr(obj, attr)
+                fields.append((attr, value))
+            except Exception as e:
+                fields.append((attr, f"<Error: {e}>"))
+    return fields
+
+# Example usage:
+client = dataiku.api_client()
+deployer_object = client.get_apideployer()
+fields_list = get_object_fields(deployer_object)
+
+# Print the list
+for key, value in fields_list:
+    print(f"{key}: {value}")
+
