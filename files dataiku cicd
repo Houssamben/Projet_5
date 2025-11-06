@@ -182,3 +182,24 @@ fields_list = get_object_fields(deployer_object)
 for key, value in fields_list:
     print(f"{key}: {value}")
 
+
+
+
+indent = 0
+for attr in dir(deployer):
+    if not attr.startswith("__"):
+        try:
+            value = getattr(deployer, attr)
+            print(" " * indent + f"{attr}: {value}")
+            
+            if hasattr(value, "__dict__"):
+                print(" " * indent + f"↳ Inspecting {attr}...")
+                for sub_attr in dir(value):
+                    if not sub_attr.startswith("__"):
+                        try:
+                            sub_value = getattr(value, sub_attr)
+                            print(" " * (indent + 4) + f"{sub_attr}: {sub_value}")
+                        except Exception as e:
+                            print(" " * (indent + 4) + f"{sub_attr}: <error> ({e})")
+        except Exception as e:
+            print(f"{attr}: <error retrieving value> ({e})")
