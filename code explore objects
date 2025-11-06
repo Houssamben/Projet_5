@@ -1,0 +1,30 @@
+import dataiku
+
+client = dataiku.api_client()
+deployer_object = client.get_apideployer()
+
+# Stack to hold objects to explore
+stack = [(deployer_object, "deployer_object")]
+
+# Set to avoid infinite loops
+visited = set()
+
+while stack:
+    current_obj, path = stack.pop()
+    if id(current_obj) in visited:
+        continue
+    visited.add(id(current_obj))
+
+    for attr in dir(current_obj):
+        if not attr.startswith("_"):
+            try:
+                value = getattr(current_obj, attr)
+                print(f"{path}.{attr} = {value}")
+
+                # If the value is another object (not a basic type), explore it
+                if hasattr(value, "__dict__") or isinstance(value, object):
+                    if not isinstance(value, (str, int, float, bool, list, dict, tuple, set)):
+                        stack.append((value, f"{path}.{attr}"))
+            except Exception as e:
+                print(f"{path}.{attr} = <Error: {e}>")
+``
