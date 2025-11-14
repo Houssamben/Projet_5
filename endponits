@@ -1,0 +1,38 @@
+from dataikuapi import APINodeClient
+
+# Connect to API Deployer
+apideployer = client.api_deployer()
+
+# DEV Deployment
+dev_deployment = apideployer.get_deployment("sql-deployment-dev")
+dev_settings = dev_deployment.get_settings()
+dev_raw = dev_settings.get_raw()
+
+# Set connection mapping for DEV
+dev_raw["endpointsServerSideConfigs"] = {
+    "sql-endpoint": {
+        "connectionMappings": {
+            "sourceConnection": "dev_postgres"
+        }
+    }
+}
+
+# Save DEV settings
+dev_settings.save()
+
+# PROD Deployment
+prod_deployment = apideployer.get_deployment("sql-deployment-prod")
+prod_settings = prod_deployment.get_settings()
+prod_raw = prod_settings.get_raw()
+
+# Set connection mapping for PROD
+prod_raw["endpointsServerSideConfigs"] = {
+    "sql-endpoint": {
+        "connectionMappings": {
+            "sourceConnection": "prod_postgres"
+        }
+    }
+}
+
+# Save PROD settings
+prod_settings.save()
