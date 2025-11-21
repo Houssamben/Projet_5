@@ -203,3 +203,37 @@ for attr in dir(deployer):
                             print(" " * (indent + 4) + f"{sub_attr}: <error> ({e})")
         except Exception as e:
             print(f"{attr}: <error retrieving value> ({e})")
+
+
+
+
+
+
+import re
+
+def extract_connection_name(trigram, connections_list, connection_type):
+    """
+    Extracts connection names that contain the trigram and match the given connection type.
+
+    Args:
+        trigram (str): The 3-letter trigram (e.g., "ave").
+        connections_list (list): List of connection names.
+        connection_type (str): The type of connection to match.
+
+    Returns:
+        list: Matching connection names.
+    """
+    # Validate trigram length (optional)
+    if len(trigram) != 3:
+        raise ValueError("Trigram must be exactly 3 characters long.")
+
+    # Compile regex for trigram search (case-insensitive)
+    trigram_pattern = re.compile(rf"\b{trigram}\b", re.IGNORECASE)
+
+    matching_connections = []
+    for connection in connections_list:
+        if get_connection_type(connection) == connection_type:
+            if trigram_pattern.search(connection):
+                matching_connections.append(connection)
+
+    return matching_connections
