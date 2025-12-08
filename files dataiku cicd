@@ -237,3 +237,13 @@ def extract_connection_name(trigram, connections_list, connection_type):
                 matching_connections.append(connection)
 
     return matching_connections
+
+
+
+# Vérifier si la version est publiée avant déploiement
+api_deployer = client_deployer.get_apideployer()
+published_versions = api_deployer.list_packages(service_id)  # Liste des packages publiés pour ce service
+
+if recent_Api_version not in [pkg["id"] for pkg in published_versions]:
+    return f"Version {recent_Api_version} n'est pas publiée, déploiement annulé."
+
