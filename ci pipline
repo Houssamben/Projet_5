@@ -1,0 +1,47 @@
+
+# Login to QUAL vault (for QUAL automation)
+login_response_qual="$(curl -fsSL -X POST \
+  -H "X-Vault-Request: true" \
+  -H "X-Vault-Namespace: ${VAULT_NAMESPACE_ROOT}/${QUAL_ECOSYSTEM}" \
+  -d "{\"jwt\":\"${VAULT_ID_TOKEN}\",\"role\":\"${VAULT_AUTH_ROLE}\"}" \
+  "${QUAL_VAULT_ADDR}/v1/auth/jwt/login")"
+VAULT_TOKEN_QUAL="$(printf '%s' "${login_response_qual}" | jq -r '.auth.client_token')"
+
+# Login to PRD vault (for RD, PPROD, PROD automation)
+login_response_prd="$(curl -fsSL -X POST \
+  -H "X-Vault-Request: true" \
+  -H "X-Vault-Namespace: ${VAULT_NAMESPACE_ROOT}/${PRD_ECOSYSTEM}" \
+  -d "{\"jwt\":\"${VAULT_ID_TOKEN}\",\"role\":\"${VAULT_AUTH_ROLE}\"}" \
+   "${PRD_VAULT_ADDR}/v1/auth/jwt/login")"
+
+
+
+
+
+# Static per-env paths (KV v2)
+AUTOMATION_RD_KEY_PATH="secret/data/ap59641/rd/toolchain/automation"
+AUTOMATION_QUAL_KEY_PATH="secret/data/ap59641/qual/toolchain/automation"
+AUTOMATION_PPROD_KEY_PATH="secret/data/ap59641/pprod/toolchain/automation"
+AUTOMATION_PROD_KEY_PATH="secret/data/ap59641/prod/toolchain/automation"
+
+# Read QUAL automation api key from QUAL vault/token
+AUTOMATION_QUAL_API_KEY="$(VAULT_ADDR="${QUAL_VAULT_ADDR}" VAULT_TOKEN="${VAULT_TOKEN_QUAL}" \
+  vault read -format=json -ns="${VAULT_NAMESPACE_ROOT}/${QUAL_ECOSYSTEM}" \
+  "${AUTOMATION_QUAL_KEY_PATH}" | jq -r '.data.data.api_key')"
+
+# Read RD, PPROD, PROD automation api keys from PRD vault/token
+AUTOMATION_RD_API_KEY="$(VAULT_ADDR="${PRD_VAULT_ADDR}" VAULT_TOKEN="${VAULT_TOKEN_PRD}" \
+  vault read -format=json -ns="${VAULT_NAMESPACE_ROOT}/${PRD_ECOSYSTEM}" \
+  "${AUTOMATION_RD_KEY_PATH}" | jq -r '.data.data.api_key')"
+
+AUTOMATION_PPROD_API_KEY="$(VAULT_ADDR="${PRD_VAULT_ADDR}" VAULT_TOKEN="${VAULT_TOKEN_PRD}" \
+  vault read -format=json -ns="${VAULT_NAMESPACE_ROOT}/${PRD_ECOSYSTEM}" \
+  "${AUTOMATION_PPROD_KEY_PATH}" | jq -r '.data.data.api_key')"
+
+AUTOMATION_PROD_API_KEY="$(VAULT_ADDR="${PRD_VAULT_ADDR}" VAULT_TOKEN="${VAULT_TOKEN_PRD}" \
+  vault read -format=json -ns="${VAULT_NAMESPACE_ROOT}/${PRD_ECOSYSTEM}" \
+  "${AUTOMATION_PROD_KEY_PATH}" | jq -r '.data.data.api_key')"
+
+# If you also need DESIGN/DEPLOY keys (common), keep using the mapped vault depending on DEPLOY_ENVIRONMENT (optional)
+# DESIGN_RD_USER_API_KEY=...
+# DEPLOY
