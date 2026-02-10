@@ -7,3 +7,36 @@ return {
 
 
 from dataiku.apinode.exceptions import DkuCustomApiException
+
+
+   "from dataiku.apinode.exceptions import DkuCustomApiException",
+    "from dataiku.apinode import DkuCustomApiException",
+    "from dataiku.apinode.utils import DkuCustomApiException",
+    "from dataiku.apinode.utils.exceptions import DkuCustomApiException",
+    "from dataiku.apinode.predict.exceptions import DkuCustomApiException",
+    "from dataiku.apinode.predict import DkuCustomApiException",
+    "from dataiku.exceptions import DkuCustomApiException",
+    "from dataiku import DkuCustomApiException",
+    "from dataiku.customwebapp import DkuCustomApiException"
+
+
+dataiku.apinode.exceptions
+
+
+"from dataiku.apinode.exceptions import DkuCustomApiException",
+    "from dataiku.apinode import DkuCustomApiException",
+    "from dataiku.apinode.utils import DkuCustomApiException",
+    "from dataiku.apinode.utils.exceptions import DkuCustomApiException",
+
+    # prediction‑related modules (sometimes available even for python endpoints)
+    "from dataiku.apinode.predict.exceptions import DkuCustomApiException",
+    "from dataiku.apinode.predict import DkuCustomApiException",
+
+    # generic fallback locations
+    'from dataiku.exceptions import DkuCustomApiException',
+    'from dataiku import DkuCustomApiException',
+
+    # webapp version (unlikely for API Node, but included to test everything)
+    "from dataiku.customwebapp import DkuCustomApiException",
+]
+
