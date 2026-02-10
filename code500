@@ -4,3 +4,6 @@ return {
     "headers": {"Content-Type": "application/json"},
     "body": {"error": "Internal error"}
 }
+
+
+from dataiku.apinode.exceptions import DkuCustomApiException
