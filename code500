@@ -40,3 +40,23 @@ dataiku.apinode.exceptions
     "from dataiku.customwebapp import DkuCustomApiException",
 ]
 
+from dataiku.apinode.predict.predictor import RegressionPredictor
+import pandas as pd
+
+class MyPredictor(RegressionPredictor):
+
+    def predict(self, features_df: pd.DataFrame):
+
+        # Test très simple : si aucun header d'auth existe → erreur contrôlée
+        http_headers = dku_http_request_metadata.headers
+
+        if not http_headers.get("Authorization"):
+            raise DkuCustomApiException(
+                "No Authorization header provided",
+                http_status_code=401
+            )
+
+        # Retourne toujours une prédiction fixe (ex : 42)
+        # Longueur = nombre de lignes dans features_df
+        return pd.Series([42] * len(features_df))
+
