@@ -1,0 +1,26 @@
+Subject: Support technique – Problème d'encodage des caractères spéciaux lors de la lecture de données Oracle
+
+Bonjour,
+
+Nous vous contactons afin de solliciter votre support technique concernant un problème d'encodage rencontré dans notre environnement Dataiku.
+
+**Contexte :**
+Nos données sont chargées depuis une base de données Oracle. Lors de la visualisation de ces données dans Dataiku, les caractères spéciaux (accents, caractères non-ASCII, etc.) s'affichent sous forme de symboles « carré avec point d'interrogation » (caractère de remplacement Unicode □ ou ), ce qui indique un problème de décodage lors de la lecture.
+
+**Ce que nous avons déjà tenté :**
+Nous avons essayé de modifier le type d'encodage dans les paramètres de connexion et de lecture du dataset, sans succès. Les caractères spéciaux restent illisibles.
+
+**Contrainte critique :**
+En raison du très grand volume de données, il ne nous est pas possible de procéder à un nouveau chargement complet depuis Oracle. Nous avons absolument besoin d'une solution permettant de corriger l'affichage et la lecture des données existantes, déjà stockées dans Dataiku, sans rechargement.
+
+**Notre besoin :**
+Nous sollicitons votre aide pour :
+1. Identifier la cause racine du problème d'encodage (incompatibilité entre le charset Oracle – vraisemblablement AL32UTF8 ou WE8ISO8859P1 – et celui utilisé par Dataiku lors de la lecture).
+2. Trouver une solution permettant de corriger ou de re-décoder les données existantes directement dans Dataiku (via une recette, un script Python/R, ou tout autre mécanisme disponible).
+3. Nous guider sur les paramètres de connexion JDBC Oracle à vérifier ou modifier.
+
+Nous restons disponibles pour vous fournir tout élément complémentaire (version de Dataiku, configuration de la connexion Oracle, exemples de données affectées).
+
+Dans l'attente de votre retour, nous vous adressons nos cordiales salutations.
+
+Cordialement,
