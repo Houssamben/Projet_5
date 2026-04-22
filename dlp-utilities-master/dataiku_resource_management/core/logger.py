@@ -19,6 +19,11 @@ class Step(Enum):
     CODE_ENV = "CODE_ENV"
     PROJECT = "PROJECT"
     CONNECTION = "CONNECTION"
+    DEPLOY = "DEPLOY"
+    PACKAGE = "PACKAGE"
+    BUNDLE = "BUNDLE"
+    API_DEPLOY = "API_DEPLOY"
+    API_PACKAGE = "API_PACKAGE"
 
 def log(level: LogLevel, step: Step, message: str):
     timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")

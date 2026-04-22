@@ -1,0 +1,116 @@
+Integration Summary — package_deploy_project_and_api → dataiku_resource_management
+Context
+The repository contained two separate folders:
+
+package_deploy_project_and_api/ — 4 standalone scripts for packaging and deploying Dataiku projects and APIs. Each script was self-contained: hardcoded host URLs, permission matrices defined inline as Python dicts, its own arg parsing, and no shared logging system.
+dataiku_resource_management/ — a structured, layered system for managing Dataiku resources, with a clean separation between config files, core utilities, models, and entry points (runnables).
+The goal was to integrate the 4 scripts into dataiku_resource_management without touching the original scripts, respecting the existing architecture and resolving all TODO comments left by the original developers.
+
+Files Modified
+dataiku_resource_management/core/logger.py — MODIFIED
+What: Added 5 new values to the Step enum: DEPLOY, PACKAGE, BUNDLE, API_DEPLOY, API_PACKAGE.
+
+Why: The existing logger only had steps relevant to resource management (groups, connections, projects, etc.). The new deployment and packaging scripts introduce new lifecycle steps that need to appear clearly in logs. Adding them here keeps all log step definitions in one central place.
+
+Files Created
+dataiku_resource_management/conf/design_rd/deploy_use_case_indus.json — NEW
+What: Contains 3 permission matrices that were hardcoded as Python dicts inside deploy_use_case_indus.py:
+
+use_case_project_permissions — per-environment permissions (RD, QUAL, INT, PPROD, PROD) for standard use case projects, with {use_case_trigram} placeholders for group names
+data_source_project_permissions — same structure but for data source projects (different groups: Data_Engineer, MLOps)
+folder_permissions — permissions applied to project folders on automation nodes
+use_case_groups — the Admin/Contributor/Consumer group name templates
+Why: The original developer left # TODO put this configuration inside json config file on each of these blocks. Moving them to JSON makes them editable without touching Python code, consistent with how all other permissions are managed in dataiku_resource_management.
+
+dataiku_resource_management/conf/design_rd/package_use_case_indus.json — NEW
+What: Contains the group name templates and deployer-level permission list that were hardcoded in package_and_publish_use_case_indus.py, again with {use_case_trigram} placeholders.
+
+Why: Same reason — # TODO put this configuration inside json config file was on both methods. Deployer permissions (who can read/write/deploy on the deployer node) are now config-driven.
+
+dataiku_resource_management/conf/design_rd/package_use_case_indus_api.json — NEW
+What: Contains api_groups_permissions — the list of groups authorized to query through the API deployer (administrators, Data_Engineer, ITops, SRE).
+
+Why: This list was hardcoded inside init_api_groups_permissions() in macro_utils.py. Moving it to config means it can be updated without modifying Python code, and it follows the same pattern as all other permission configs in the project.
+
+dataiku_resource_management/utils/macro_utils.py — NEW
+What: Adapted from package_deploy_project_and_api/use_case_indus_api/lib/macro_utils.py. Contains shared utility functions used by both API scripts: extract_ApiId_version, get_connection_type, update_connection, extract_project_trigram, extract_connection_name, define_api_version, create_or_update_deployment.
+
+Changes from original:
+
+Added from core.logger import log, LogLevel, Step and log() calls at key points alongside the existing print() statements (both kept — prints are useful during pipeline runs)
+Removed init_api_groups_permissions() — its data moved to package_use_case_indus_api.json
+create_or_update_deployment() now receives api_groups_permissions as a parameter instead of calling the removed function
+Why: The original lib/macro_utils.py was a private library inside use_case_indus_api/. Moving it to utils/ makes it available to all model files and follows the shared utilities pattern of dataiku_resource_management.
+
+dataiku_resource_management/model/deploy_use_case_indus.py — NEW
+What: Contains the UseCaseIndusDeployer class and all its helper functions (create_folder_hierarchy, get_project_folders, get_or_create_folder, create_group, get_mapped_connections, get_activated_scenarios, create_or_update_deployment, update_automation_project).
+
+Changes from original:
+
+Constructor now receives deploy_config (the JSON loaded from conf/design_rd/deploy_use_case_indus.json) instead of having permission dicts hardcoded inside methods
+Uses format_nested_structure() to resolve {use_case_trigram} placeholders in permission templates at runtime
+Host URLs are received as constructor parameters (resolved from global_config.json by the runnable) instead of being hardcoded
+Uses log() from core/logger alongside existing print() statements
+run() method no longer takes a process_callback argument (was always passed as None)
+Why: Separates the class logic (model layer) from configuration and entry point concerns, following the UseCaseIndus class pattern already established in the project.
+
+dataiku_resource_management/model/package_use_case_indus.py — NEW
+What: Contains the PackageUseCaseIndus class and helpers (create_group, extract_project_trigram, define_bundles_version, create_and_publish_bundle, extract_included_managed_folders).
+
+Changes from original:
+
+Constructor receives package_config instead of hardcoded group names and permissions
+Uses format_nested_structure() for {use_case_trigram} substitution
+Host URLs received as parameters from runnable
+log() added alongside print()
+run() no longer takes progress_callback
+dataiku_resource_management/model/deploy_use_case_indus_api.py — NEW
+What: Contains the UseCaseIndusAPIDeployer class.
+
+Changes from original:
+
+Imports define_api_version and create_or_update_deployment from utils/macro_utils instead of lib/macro_utils
+Receives api_groups_permissions as a constructor parameter (loaded from config by the runnable) and passes it through to create_or_update_deployment
+Host URLs received as parameters
+log() added alongside print()
+dataiku_resource_management/model/package_use_case_indus_api.py — NEW
+What: Contains the PackageUseCaseIndusAPI class.
+
+Changes from original:
+
+automation_nodes list (host + api_key + infra label per environment) is now built by the runnable from global_config.json and passed in as a parameter — no hardcoded hosts inside the class
+Receives api_groups_permissions from config via constructor
+Imports all utilities from utils/macro_utils
+log() added alongside print()
+dataiku_resource_management/runnables/deploy_use_case_indus.py — NEW
+What: Entry point for deploying a project. Parses CLI args (--design-rd-user-api-key, --deployer-api-key, --automation-api-key, --infra-id, --project-key, --version), loads global_config.json and deploy_use_case_indus.json, resolves the automation host from global_config[infra_id]["host"], instantiates UseCaseIndusDeployer, calls .run().
+
+Why: Follows exactly the pattern of runnables/use_case_indus_management.py — thin entry point, no business logic, all config loaded here and injected into the model.
+
+dataiku_resource_management/runnables/package_and_publish_use_case_indus.py — NEW
+What: Entry point for packaging a project. Parses --design-rd-user-api-key, --deployer-api-key, --project-key. Loads hosts from global_config.json and group/permission config from package_use_case_indus.json. Instantiates PackageUseCaseIndus.
+
+dataiku_resource_management/runnables/deploy_use_case_indus_api.py — NEW
+What: Entry point for deploying an API service. Parses --design-rd-user-api-key, --deployer-api-key, --project-key, --api-service-id, --infra-id, --api-version (optional). Loads api_groups_permissions from package_use_case_indus_api.json. Instantiates UseCaseIndusAPIDeployer.
+
+dataiku_resource_management/runnables/package_and_publish_use_case_indus_api.py — NEW
+What: Entry point for packaging an API service across all automation environments. Parses one API key per environment (--automation-api-key-qual/int/rd/pprd/prd). Builds the automation_nodes list directly from global_config.json hosts paired with the CLI keys. Instantiates PackageUseCaseIndusAPI.
+
+Why: This is the only runnable where the host-to-key pairing happens — keeping it in the runnable means the model class stays clean and testable.
+
+pipeline/pipeline.gitlab-ci.yml — MODIFIED
+What: 4 python command lines updated:
+
+Stage	Before	After
+bundle	python $SOURCES_LOCATION/package_deploy_project_and_api/.../package_and_publish_use_case_indus.py	python -m dataiku_resource_management.runnables.package_and_publish_use_case_indus
+.deploy	python $SOURCES_LOCATION/package_deploy_project_and_api/.../deploy_use_case_indus.py	python -m dataiku_resource_management.runnables.deploy_use_case_indus
+api_bundle	python $SOURCES_LOCATION/package_deploy_project_and_api/.../package_and_publish_use_case_indus_api.py	python -m dataiku_resource_management.runnables.package_and_publish_use_case_indus_api
+.api_deploy	python $SOURCES_LOCATION/package_deploy_project_and_api/.../deploy_use_case_indus_api.py	python -m dataiku_resource_management.runnables.deploy_use_case_indus_api
+--project-key $DEPLOY_PROJECT_KEY was added to all 4 calls because the new runnables receive the project key as a named CLI argument instead of reading it from params.json.
+
+Why: The scripts moved from package_deploy_project_and_api/ to dataiku_resource_management/runnables/ and are now proper Python modules invoked with python -m, consistent with how use-case-indus-management.gitlab-ci.yml already calls dataiku_resource_management scripts.
+
+What was NOT changed
+Nothing inside package_deploy_project_and_api/ was modified — the original scripts remain intact
+cd-pipeline.gitlab-ci.yml was not modified
+No existing files in dataiku_resource_management/ were modified except core/logger.py (additive only)
