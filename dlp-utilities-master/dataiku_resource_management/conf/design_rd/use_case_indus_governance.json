@@ -1,0 +1,275 @@
+{
+  "use_case_groups": {
+    "admin_group": "{use_case_trigram}_Admin",
+    "contributor_group": "{use_case_trigram}_Contributor",
+    "consumer_group": "{use_case_trigram}_Consumer"
+  },
+  "use_case_groups_permissions": {
+    "admin": false,
+    "mayManageUDM": false,
+    "mayCreateProjects": false,
+    "mayCreateProjectsFromMacros": false,
+    "mayCreateProjectsFromTemplates": false,
+    "mayCreateProjectsFromDataikuApps": false,
+    "mayWriteUnsafeCode": false,
+    "mayWriteSafeCode": false,
+    "mayCreateAuthenticatedConnections": false,
+    "mayCreateCodeEnvs": false,
+    "mayCreateClusters": false,
+    "mayCreateCodeStudioTemplates": false,
+    "mayDevelopPlugins": false,
+    "mayEditLibFolders": false,
+    "mayManageCodeEnvs": false,
+    "mayManageClusters": false,
+    "mayManageCodeStudioTemplates": false,
+    "mayViewIndexedHiveConnections": false,
+    "mayCreatePublishedAPIServices": false,
+    "mayCreatePublishedProjects": false,
+    "mayWriteInRootProjectFolder": false,
+    "mayCreateActiveWebContent": false,
+    "mayCreateWorkspaces": false,
+    "mayShareToWorkspaces": false,
+    "mayCreateDataCollections": false,
+    "mayPublishToDataCollections": false,
+    "mayManageFeatureStore": false,
+    "canObtainAPITicketFromCookiesForGroupsRegex": ""
+  },
+  "use_case_projects": [
+    {
+      "project_key": "01_{lot_trigram}_DATASET",
+      "project_name": "01_{lot_trigram}_DATASET",
+      "project_description": "Use Case: {lot_name}, Trigramm: {lot_trigram}, AP Code: {ap_code}"
+    },
+    {
+      "project_key": "02_{lot_trigram}_DESIGN",
+      "project_name": "02_{lot_trigram}_DESIGN",
+      "project_description": "Use Case: {lot_name}, Trigramm: {lot_trigram}, AP Code: {ap_code}"
+    },
+    {
+      "project_key": "03_{lot_trigram}_PRODUCT",
+      "project_name": "03_{lot_trigram}_PRODUCT",
+      "project_description": "Use Case: {lot_name}, Trigramm: {lot_trigram}, AP Code: {ap_code}"
+    }
+  ],
+  "data_collection_names": [
+    "{lot_trigram}_DATASET",
+    "{lot_trigram}_DESIGN",
+    "{lot_trigram}_PRODUCT"
+  ],
+  "use_case_folder_permissions": [
+    {
+      "group": "{use_case_trigram}_Admin",
+      "admin": false,
+      "read": true,
+      "writeContents": false
+    },
+    {
+      "group": "{use_case_trigram}_Contributor",
+      "admin": false,
+      "read": true,
+      "writeContents": false
+    },
+    {
+      "group": "{use_case_trigram}_Consumer",
+      "admin": false,
+      "read": true,
+      "writeContents": false
+    }
+  ],
+  "projects_permissions": [
+    {
+      "group": "{use_case_trigram}_Admin",
+      "admin": true,
+      "readProjectContent": true,
+      "writeProjectContent": true,
+      "publishToDataCollections": true,
+      "shareToWorkspaces": true,
+      "exportDatasetsData": true,
+      "readDashboards": true,
+      "writeDashboards": true,
+      "runScenarios": true,
+      "manageAdditionalDashboardUsers": true,
+      "manageExposedElements": true
+    },
+    {
+      "group": "{use_case_trigram}_Contributor",
+      "admin": false,
+      "readProjectContent": true,
+      "writeProjectContent": true,
+      "publishToDataCollections": true,
+      "shareToWorkspaces": false,
+      "exportDatasetsData": false,
+      "readDashboards": true,
+      "writeDashboards": true,
+      "runScenarios": true,
+      "manageAdditionalDashboardUsers": true,
+      "manageExposedElements": false
+    },
+    {
+      "group": "{use_case_trigram}_Consumer",
+      "admin": false,
+      "readProjectContent": true,
+      "writeProjectContent": false,
+      "publishToDataCollections": false,
+      "shareToWorkspaces": false,
+      "exportDatasetsData": false,
+      "readDashboards": true,
+      "writeDashboards": false,
+      "runScenarios": false,
+      "manageAdditionalDashboardUsers": false,
+      "manageExposedElements": false
+    },
+    {
+      "group": "ITops",
+      "admin": true,
+      "readProjectContent": true,
+      "writeProjectContent": true,
+      "publishToDataCollections": true,
+      "shareToWorkspaces": true,
+      "exportDatasetsData": true,
+      "readDashboards": true,
+      "writeDashboards": true,
+      "runScenarios": true,
+      "manageAdditionalDashboardUsers": true,
+      "manageExposedElements": true
+    },
+    {
+      "group": "SRE",
+      "admin": true,
+      "readProjectContent": true,
+      "writeProjectContent": true,
+      "publishToDataCollections": true,
+      "shareToWorkspaces": true,
+      "exportDatasetsData": true,
+      "readDashboards": true,
+      "writeDashboards": true,
+      "runScenarios": true,
+      "manageAdditionalDashboardUsers": true,
+      "manageExposedElements": true
+    },
+    {
+      "group": "administrators",
+      "admin": true,
+      "readProjectContent": true,
+      "writeProjectContent": true,
+      "publishToDataCollections": true,
+      "shareToWorkspaces": true,
+      "exportDatasetsData": true,
+      "readDashboards": true,
+      "writeDashboards": true,
+      "runScenarios": true,
+      "manageAdditionalDashboardUsers": true,
+      "manageExposedElements": true
+    }
+  ],
+  "lot_projects_permissions": {
+    "group": "{use_case_trigram}_[lot_trigram}_Consumer",
+    "admin": false,
+    "readProjectContent": true,
+    "writeProjectContent": false,
+    "publishToDataCollections": false,
+    "shareToWorkspaces": false,
+    "exportDatasetsData": false,
+    "readDashboards": true,
+    "writeDashboards": false,
+    "runScenarios": false,
+    "manageAdditionalDashboardUsers": false,
+    "manageExposedElements": false
+  },
+  "data_collection_permissions": [
+    {
+      "group": "{use_case_trigram}_Admin",
+      "admin": true,
+      "read": true,
+      "write": true
+    },
+    {
+      "group": "{use_case_trigram}_Contributor",
+      "admin": false,
+      "read": true,
+      "write": true
+    },
+    {
+      "group": "{use_case_trigram}_Consumer",
+      "admin": false,
+      "read": true,
+      "write": false
+    }
+  ],
+  "lot_data_collection_permissions": {
+      "group": "{lot_trigram}_Consumer",
+      "admin": false,
+      "read": true,
+      "write": false
+    },
+  "cos_connections_permissions": {
+    "allowedGroups": [
+      "{use_case_trigram}_Admin",
+      "{use_case_trigram}_Contributor"
+    ],
+    "detailsReadableByGroups": [
+      "{use_case_trigram}_Admin",
+      "{use_case_trigram}_Contributor"
+    ]
+  },
+  "db_connections_permissions": {
+    "allowedGroups": [
+      "{use_case_trigram}_Admin",
+      "{use_case_trigram}_Contributor"
+    ],
+    "detailsReadableByGroups": [
+      "{use_case_trigram}_Admin"
+    ]
+  },
+  "shared_cos_connections_permissions": {
+    "allowedGroups": [
+      "{use_case_trigram}_Admin",
+      "{use_case_trigram}_Contributor"
+    ],
+    "detailsReadableByGroups": [
+      "{use_case_trigram}_Admin",
+      "{use_case_trigram}_Contributor"
+    ]
+  },
+  "shared_db_connections_permissions": {
+    "allowedGroups": [
+      "{use_case_trigram}_Admin",
+      "{use_case_trigram}_Contributor"
+    ],
+    "detailsReadableByGroups": []
+  },
+  "shared_data_collection_permissions": [
+    {
+      "group": "{use_case_trigram}_Admin",
+      "admin": false,
+      "read": true,
+      "write": false
+    },
+    {
+      "group": "{use_case_trigram}_Contributor",
+      "admin": false,
+      "read": true,
+      "write": false
+    }
+  ],
+  "code_env_permissions": [
+    {
+      "group": "{use_case_trigram}_Admin",
+      "update": true,
+      "use": true,
+      "manageUsers": false
+    },
+    {
+      "group": "{use_case_trigram}_Contributor",
+      "update": true,
+      "use": true,
+      "manageUsers": false
+    },
+    {
+      "group": "{use_case_trigram}_Consumer",
+      "update": false,
+      "use": true,
+      "manageUsers": false
+    }
+  ]
+}

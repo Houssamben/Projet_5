@@ -1,0 +1,10 @@
+pytest==8.4.2
+pytest-cov==7.0.0
+pandas==2.1.4
+polars==1.36.1
+pyarrow==19.0.1
+numpy==1.26.4
+dataiku-api-client
+scikit-learn==1.6.1
+pytest-mock==3.15.1
+https://ds-studio-0r1.leasingsolutions.echonet/public/packages/dataiku-internal-client.tar.gz

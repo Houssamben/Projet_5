@@ -1,0 +1,226 @@
+{
+  "dlp": {
+    "cos_connection": [
+      {
+        "name": "shared",
+        "cos": "co002i006316",
+        "bucket": "bu002i010698",
+        "path_in_bucket": "/design",
+        "managed_data_subpath": "/dataiku",
+        "host": "s3.direct.eu-fr2.cloud-object-storage.appdomain.cloud",
+        "port": "4279",
+        "ecosystem": "EC002I000831"
+      }
+    ],
+    "db_connection": [
+      {
+        "name": "test",
+        "resource": "pg002i011376",
+        "host": "svc-np.paas.echonet",
+        "port": "4256",
+        "db": "ibmclouddb",
+        "schema": "own_AP90601_test"
+      }
+    ]
+  },
+  "dcp_raw": {
+    "cos_connection": [
+      {
+        "name": "dcp-raw-m",
+        "cos": "co002i001289",
+        "bucket": "bu002i001802",
+        "path_in_bucket": "",
+        "managed_data_subpath": "/raw",
+        "host": "s3.direct.eu-fr2.cloud-object-storage.appdomain.cloud",
+        "port": "4221",
+        "ecosystem": ""
+      },
+      {
+        "name": "dcp-raw-d",
+        "cos": "co002i001289",
+        "bucket": "bu002i013929",
+        "path_in_bucket": "",
+        "managed_data_subpath": "/raw",
+        "host": "s3.direct.eu-fr2.cloud-object-storage.appdomain.cloud",
+        "port": "4271",
+        "ecosystem": ""
+      }
+    ],
+    "db_connection": []
+  },
+  "dcp_trusted": {
+    "cos_connection": [
+      {
+        "name": "dcp-trusted-cireco_asset-m",
+        "cos": "co002i004051",
+        "bucket": "bu002i014902",
+        "path_in_bucket": "",
+        "managed_data_subpath": "/trusted",
+        "host": "s3.direct.eu-fr2.cloud-object-storage.appdomain.cloud",
+        "port": "4224",
+        "ecosystem": ""
+      },
+      {
+        "name": "dcp-trusted-ctrbom_contract-m",
+        "cos": "co002i004051",
+        "bucket": "bu002i014894",
+        "path_in_bucket": "",
+        "managed_data_subpath": "/trusted",
+        "host": "s3.direct.eu-fr2.cloud-object-storage.appdomain.cloud",
+        "port": "4220",
+        "ecosystem": ""
+      },
+      {
+        "name": "dcp-trusted-ctrbom_fincondition-m",
+        "cos": "co002i004051",
+        "bucket": "bu002i014892",
+        "path_in_bucket": "",
+        "managed_data_subpath": "/trusted",
+        "host": "s3.direct.eu-fr2.cloud-object-storage.appdomain.cloud",
+        "port": "4222",
+        "ecosystem": ""
+      },
+      {
+        "name": "dcp-trusted-ctrbom_leas_received_guarantee-m",
+        "cos": "co002i004051",
+        "bucket": "bu002i014897",
+        "path_in_bucket": "",
+        "managed_data_subpath": "/trusted",
+        "host": "s3.direct.eu-fr2.cloud-object-storage.appdomain.cloud",
+        "port": "4217",
+        "ecosystem": ""
+      },
+      {
+        "name": "dcp-trusted-origin_product-m",
+        "cos": "co002i004051",
+        "bucket": "bu002i014891",
+        "path_in_bucket": "",
+        "managed_data_subpath": "/trusted",
+        "host": "s3.direct.eu-fr2.cloud-object-storage.appdomain.cloud",
+        "port": "4223",
+        "ecosystem": ""
+      },
+      {
+        "name": "dcp-trusted-otpm_third_party-m",
+        "cos": "co002i004051",
+        "bucket": "bu002i014895",
+        "path_in_bucket": "",
+        "managed_data_subpath": "/trusted",
+        "host": "s3.direct.eu-fr2.cloud-object-storage.appdomain.cloud",
+        "port": "4219",
+        "ecosystem": ""
+      },
+      {
+        "name": "dcp-trusted-risk_authorization-m",
+        "cos": "co002i004051",
+        "bucket": "bu002i014893",
+        "path_in_bucket": "",
+        "managed_data_subpath": "/trusted",
+        "host": "s3.direct.eu-fr2.cloud-object-storage.appdomain.cloud",
+        "port": "4221",
+        "ecosystem": ""
+      },
+      {
+        "name": "dcp-trusted-risk_third_party-m",
+        "cos": "co002i004051",
+        "bucket": "bu002i014896",
+        "path_in_bucket": "",
+        "managed_data_subpath": "/trusted",
+        "host": "s3.direct.eu-fr2.cloud-object-storage.appdomain.cloud",
+        "port": "4218",
+        "ecosystem": ""
+      },
+      {
+        "name": "dcp-fin_ls_bank_orga-m",
+        "cos": "co002i004051",
+        "bucket": "bu002i015782",
+        "path_in_bucket": "",
+        "managed_data_subpath": "/trusted",
+        "host": "s3.direct.eu-fr2.cloud-object-storage.appdomain.cloud",
+        "port": "4285",
+        "ecosystem": ""
+      },
+      {
+        "name": "dcp-fin_product-m",
+        "cos": "co002i004051",
+        "bucket": "bu002i015783",
+        "path_in_bucket": "",
+        "managed_data_subpath": "/trusted",
+        "host": "s3.direct.eu-fr2.cloud-object-storage.appdomain.cloud",
+        "port": "4284",
+        "ecosystem": ""
+      }
+    ],
+    "db_connection": []
+  },
+  "orus": {
+    "cos_connection": [],
+    "db_connection": [
+      {
+        "name": "ORUSNL-PROD",
+        "connection_url": "jdbc:oracle:thin:@(DESCRIPTION=(ADDRESS_LIST=(LOAD_BALANCE=OFF)(FAILOVER=ON)(ADDRESS=(PROTOCOL=TCP)(HOST=xlgs15105368.fr.xlg.net.intra)(PORT=18788))(ADDRESS=(PROTOCOL=TCP)(HOST=xlgs15105365.fr.xlg.net.intra)(PORT=18788)))(CONNECT_DATA=(SERVICE_NAME=DLPNL)(INSTANCE=RORUSNL)))",
+        "displayed_url": "jdbc:oracle:thin:@(DESCRIPTION=(ADDRESS_LIST=(LOAD_BALANCE=OFF)(FAILOVER=ON)(ADDRESS=(PROTOCOL=TCP)(HOST=xlgs15105368.fr.xlg.net.intra)(PORT=18788))(ADDRESS=(PROTOCOL=TCP)(HOST=xlgs15105365.fr.xlg.net.intra)(PORT=18788)))(CONNECT_DATA=(SERVICE_NAME=DLPNL)(INSTANCE=RORUSNL)))"
+      },
+      {
+        "name": "ORUSIT-PROD",
+        "connection_url": "jdbc:oracle:thin:@(DESCRIPTION=(ADDRESS_LIST=(LOAD_BALANCE=OFF)(FAILOVER=ON)(ADDRESS=(PROTOCOL=TCP)(HOST=xlgs15105368.fr.xlg.net.intra)(PORT=18788))(ADDRESS=(PROTOCOL=TCP)(HOST=xlgs15105365.fr.xlg.net.intra)(PORT=18788)))(CONNECT_DATA=(SERVICE_NAME=DLPIT)(INSTANCE=RORUSIT)))",
+        "displayed_url": "jdbc:oracle:thin:@(DESCRIPTION=(ADDRESS_LIST=(LOAD_BALANCE=OFF)(FAILOVER=ON)(ADDRESS=(PROTOCOL=TCP)(HOST=xlgs15105368.fr.xlg.net.intra)(PORT=18788))(ADDRESS=(PROTOCOL=TCP)(HOST=xlgs15105365.fr.xlg.net.intra)(PORT=18788)))(CONNECT_DATA=(SERVICE_NAME=DLPIT)(INSTANCE=RORUSIT)))"
+      },
+      {
+        "name": "ORUSGB-PROD",
+        "connection_url": "jdbc:oracle:thin:@(DESCRIPTION=(ADDRESS_LIST=(LOAD_BALANCE=OFF)(FAILOVER=ON)(ADDRESS=(PROTOCOL=TCP)(HOST=xlgs15105368.fr.xlg.net.intra)(PORT=18788))(ADDRESS=(PROTOCOL=TCP)(HOST=xlgs15105365.fr.xlg.net.intra)(PORT=18788)))(CONNECT_DATA=(SERVICE_NAME=DLPGB)(INSTANCE=RORUSGB)))",
+        "displayed_url": "jdbc:oracle:thin:@(DESCRIPTION=(ADDRESS_LIST=(LOAD_BALANCE=OFF)(FAILOVER=ON)(ADDRESS=(PROTOCOL=TCP)(HOST=xlgs15105368.fr.xlg.net.intra)(PORT=18788))(ADDRESS=(PROTOCOL=TCP)(HOST=xlgs15105365.fr.xlg.net.intra)(PORT=18788)))(CONNECT_DATA=(SERVICE_NAME=DLPGB)(INSTANCE=RORUSGB)))"
+      },
+      {
+        "name": "ORUSES-PROD",
+        "connection_url": "jdbc:oracle:thin:@(DESCRIPTION=(ADDRESS_LIST=(LOAD_BALANCE=OFF)(FAILOVER=ON)(ADDRESS=(PROTOCOL=TCP)(HOST=xlgs15105368.fr.xlg.net.intra)(PORT=18788))(ADDRESS=(PROTOCOL=TCP)(HOST=xlgs15105365.fr.xlg.net.intra)(PORT=18788)))(CONNECT_DATA=(SERVICE_NAME=DLPES)(INSTANCE=RORUSES)))",
+        "displayed_url": "jdbc:oracle:thin:@(DESCRIPTION=(ADDRESS_LIST=(LOAD_BALANCE=OFF)(FAILOVER=ON)(ADDRESS=(PROTOCOL=TCP)(HOST=xlgs15105368.fr.xlg.net.intra)(PORT=18788))(ADDRESS=(PROTOCOL=TCP)(HOST=xlgs15105365.fr.xlg.net.intra)(PORT=18788)))(CONNECT_DATA=(SERVICE_NAME=DLPES)(INSTANCE=RORUSES)))"
+      },
+      {
+        "name": "ORUSDE-PROD",
+        "connection_url": "jdbc:oracle:thin:@(DESCRIPTION=(ADDRESS_LIST=(LOAD_BALANCE=OFF)(FAILOVER=ON)(ADDRESS=(PROTOCOL=TCP)(HOST=xlgs15105368.fr.xlg.net.intra)(PORT=18788))(ADDRESS=(PROTOCOL=TCP)(HOST=xlgs15105365.fr.xlg.net.intra)(PORT=18788)))(CONNECT_DATA=(SERVICE_NAME=DLPDE)(INSTANCE=RORUSDE)))",
+        "displayed_url": "jdbc:oracle:thin:@(DESCRIPTION=(ADDRESS_LIST=(LOAD_BALANCE=OFF)(FAILOVER=ON)(ADDRESS=(PROTOCOL=TCP)(HOST=xlgs15105368.fr.xlg.net.intra)(PORT=18788))(ADDRESS=(PROTOCOL=TCP)(HOST=xlgs15105365.fr.xlg.net.intra)(PORT=18788)))(CONNECT_DATA=(SERVICE_NAME=DLPDE)(INSTANCE=RORUSDE)))"
+      },
+      {
+        "name": "ORUSBE-PROD",
+        "connection_url": "jdbc:oracle:thin:@(DESCRIPTION=(ADDRESS_LIST=(LOAD_BALANCE=OFF)(FAILOVER=ON)(ADDRESS=(PROTOCOL=TCP)(HOST=xlgs15105368.fr.xlg.net.intra)(PORT=18788))(ADDRESS=(PROTOCOL=TCP)(HOST=xlgs15105365.fr.xlg.net.intra)(PORT=18788)))(CONNECT_DATA=(SERVICE_NAME=DLPBE)(INSTANCE=RORUSBE)))",
+        "displayed_url": "jdbc:oracle:thin:@(DESCRIPTION=(ADDRESS_LIST=(LOAD_BALANCE=OFF)(FAILOVER=ON)(ADDRESS=(PROTOCOL=TCP)(HOST=xlgs15105368.fr.xlg.net.intra)(PORT=18788))(ADDRESS=(PROTOCOL=TCP)(HOST=xlgs15105365.fr.xlg.net.intra)(PORT=18788)))(CONNECT_DATA=(SERVICE_NAME=DLPBE)(INSTANCE=RORUSBE)))"
+      },
+      {
+        "name": "ORUSFR-PROD",
+        "connection_url": "jdbc:oracle:thin:@(DESCRIPTION=(ADDRESS_LIST=(LOAD_BALANCE=OFF)(FAILOVER=ON)(ADDRESS=(PROTOCOL=TCP)(HOST=xlgs15105368.fr.xlg.net.intra)(PORT=18788))(ADDRESS=(PROTOCOL=TCP)(HOST=xlgs15105365.fr.xlg.net.intra)(PORT=18788)))(CONNECT_DATA=(SERVICE_NAME=DLPFR)(INSTANCE=RORUSFR)))",
+        "displayed_url": "jdbc:oracle:thin:@(DESCRIPTION=(ADDRESS_LIST=(LOAD_BALANCE=OFF)(FAILOVER=ON)(ADDRESS=(PROTOCOL=TCP)(HOST=xlgs15105368.fr.xlg.net.intra)(PORT=18788))(ADDRESS=(PROTOCOL=TCP)(HOST=xlgs15105365.fr.xlg.net.intra)(PORT=18788)))(CONNECT_DATA=(SERVICE_NAME=DLPFR)(INSTANCE=RORUSFR)))"
+      }
+    ]
+  },
+  "deka": {
+    "cos_connection": [],
+    "db_connection": [
+      {
+        "name": "DEKA-PROD",
+        "connection_url": "jdbc:oracle:thin:@(DESCRIPTION=(ADDRESS_LIST=(LOAD_BALANCE=OFF)(FAILOVER=ON)(ADDRESS=(PROTOCOL=TCP)(HOST=xlgs15105368.fr.xlg.net.intra)(PORT=18786))(ADDRESS=(PROTOCOL=TCP)(HOST=xlgs15105365.fr.xlg.net.intra)(PORT=18786)))(CONNECT_DATA=(SERVICE_NAME=DLP)(INSTANCE=PDEKAWW)))",
+        "displayed_url": "jdbc:oracle:thin:@(DESCRIPTION=(ADDRESS_LIST=(LOAD_BALANCE=OFF)(FAILOVER=ON)(ADDRESS=(PROTOCOL=TCP)(HOST=xlgs15105368.fr.xlg.net.intra)(PORT=18786))(ADDRESS=(PROTOCOL=TCP)(HOST=xlgs15105365.fr.xlg.net.intra)(PORT=18786)))(CONNECT_DATA=(SERVICE_NAME=DLP)(INSTANCE=PDEKAWW)))"
+      }
+    ]
+  },
+  "rfa": {
+    "cos_connection": [],
+    "db_connection": [
+      {
+        "name": "RFA-PROD",
+        "connection_url": "jdbc:oracle:thin:@(DESCRIPTION=(ADDRESS_LIST=(LOAD_BALANCE=OFF)(FAILOVER=ON)(ADDRESS=(PROTOCOL=TCP)(HOST=xlgs15105368.fr.xlg.net.intra)(PORT=18790))(ADDRESS=(PROTOCOL=TCP)(HOST=xlgs15105365.fr.xlg.net.intra)(PORT=18790)))(CONNECT_DATA=(SERVICE_NAME=DLP)(INSTANCE=PDWHWW)))",
+        "displayed_url": "jdbc:oracle:thin:@(DESCRIPTION=(ADDRESS_LIST=(LOAD_BALANCE=OFF)(FAILOVER=ON)(ADDRESS=(PROTOCOL=TCP)(HOST=xlgs15105368.fr.xlg.net.intra)(PORT=18790))(ADDRESS=(PROTOCOL=TCP)(HOST=xlgs15105365.fr.xlg.net.intra)(PORT=18790)))(CONNECT_DATA=(SERVICE_NAME=DLP)(INSTANCE=PDWHWW)))"
+      }
+    ]
+  },
+  "danae": {
+    "cos_connection": [],
+    "db_connection": [
+      {
+        "name": "DANAE-PROD",
+        "connection_url": "jdbc:oracle:thin:@(DESCRIPTION=(ADDRESS_LIST=(LOAD_BALANCE=OFF)(FAILOVER=ON)(ADDRESS=(PROTOCOL=TCP)(HOST=xlgs15105368.fr.xlg.net.intra)(PORT=18792))(ADDRESS=(PROTOCOL=TCP)(HOST=xlgs15105365.fr.xlg.net.intra)(PORT=18792)))(CONNECT_DATA=(SERVICE_NAME=DLP)(INSTANCE=RDAN01WW)))",
+        "displayed_url": "jdbc:oracle:thin:@(DESCRIPTION=(ADDRESS_LIST=(LOAD_BALANCE=OFF)(FAILOVER=ON)(ADDRESS=(PROTOCOL=TCP)(HOST=xlgs15105368.fr.xlg.net.intra)(PORT=18792))(ADDRESS=(PROTOCOL=TCP)(HOST=xlgs15105365.fr.xlg.net.intra)(PORT=18792)))(CONNECT_DATA=(SERVICE_NAME=DLP)(INSTANCE=RDAN01WW)))"
+      }
+    ]
+  }
+}

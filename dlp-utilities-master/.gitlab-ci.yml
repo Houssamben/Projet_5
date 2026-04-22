@@ -1,0 +1,31 @@
+# .gitlab-ci.yml
+
+# Include des fichiers de configuration spécifiques
+include:
+  - local: 'pipeline/connection-management.gitlab-ci.yml'
+  - local: 'pipeline/use-case-indus-management.gitlab-ci.yml'
+  - local: 'pipeline/lab-domain-management.gitlab-ci.yml'
+
+# Variables globales communes à tous les pipelines
+variables:
+  # Configuration générale
+  PIP_CONFIG_FILE: "pip/pip.conf"
+  VENV_PATH: "venv"
+  PACKAGE_PATH: "package"
+  PYTHON_VERSION: "3.12.7-06810899"
+  APP_NAME: $CI_PROJECT_NAME
+
+  # Configuration Vault
+  VAULT_NAMESPACE_L: "BNPPLG_LEASING/5004/EC002I000831"
+  VAULT_ADDR_L: "https://hvault.group.echonet"
+  VAULT_AUTH_ROLE: "gitlab-ci"
+
+# Configuration du workflow global
+workflow:
+  rules:
+    - if: '$CI_PIPELINE_SOURCE == "web"'
+
+# Définition des stages globaux
+stages:
+  - setup
+  - manage

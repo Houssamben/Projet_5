@@ -1,0 +1,83 @@
+{
+  "RSK": {
+    "name": "Risk",
+    "cos_connection": ["s3-rsk-co002i007264"],
+    "db_connection": ["db-rsk-pg002i011595"],
+    "shared_data_collection": [],
+    "shared_cos_connection": ["s3-cft-rsk-co002i007950"],
+    "shared_db_connection": [
+      "DEKA-PROD",
+      "RFA-PROD",
+      "DANAE-PROD",
+      "ORUSNL-PROD", "ORUSIT-PROD", "ORUSGB-PROD", "ORUSES-PROD", "ORUSDE-PROD", "ORUSBE-PROD", "ORUSFR-PROD"
+    ],
+    "use_case_group": {
+      "sourceType": "LOCAL",
+      "ssoGroupNames": []
+    }
+  },
+  "FIN": {
+    "name": "Finance",
+    "cos_connection": ["s3-shared-fin-co002i006316"],
+    "db_connection": ["db-shared-fin-pg002i014696"],
+    "shared_data_collection": ["DCP_TRUSTED"],
+    "shared_cos_connection": [],
+    "shared_db_connection": [
+      "DANAE-PROD",
+      "ORUSNL-PROD", "ORUSIT-PROD", "ORUSGB-PROD", "ORUSES-PROD", "ORUSDE-PROD", "ORUSBE-PROD", "ORUSFR-PROD"
+    ],
+    "use_case_group": {
+      "sourceType": "LOCAL",
+      "ssoGroupNames": []
+    }
+  },
+  "OPE": {
+    "name": "Operation",
+    "cos_connection": ["s3-shared-ope-co002i006316"],
+    "db_connection": ["db-shared-ope-pg002i014696"],
+    "shared_data_collection": ["DCP_TRUSTED"],
+    "shared_cos_connection": [],
+    "shared_db_connection": [
+      "ORUSNL-PROD", "ORUSIT-PROD", "ORUSGB-PROD", "ORUSES-PROD", "ORUSDE-PROD", "ORUSBE-PROD", "ORUSFR-PROD"
+    ],
+    "use_case_group": {
+      "sourceType": "LOCAL",
+      "ssoGroupNames": []
+    }
+  },
+  "BUS": {
+    "name": "Business",
+    "cos_connection": ["s3-shared-bus-co002i006316"],
+    "db_connection": ["db-shared-bus-pg002i014696"],
+    "shared_data_collection": ["DCP_TRUSTED"],
+    "shared_cos_connection": [],
+    "shared_db_connection": [
+      "ORUSNL-PROD", "ORUSIT-PROD", "ORUSGB-PROD", "ORUSES-PROD", "ORUSDE-PROD", "ORUSBE-PROD", "ORUSFR-PROD"
+    ],
+    "use_case_group": {
+      "sourceType": "LOCAL_NO_AUTH",
+      "ssoGroupNames": [
+        "BUS_Contributor"
+      ]
+    }
+  },
+  "DAQ": {
+    "name": "Data Quality",
+    "cos_connection": ["s3-shared-daq-co002i006316"],
+    "db_connection": ["db-shared-daq-pg002i014696"],
+    "shared_data_collection": ["DCP_TRUSTED"],
+    "shared_cos_connection": [],
+    "shared_db_connection": [
+      "DEKA-PROD",
+      "RFA-PROD",
+      "DANAE-PROD",
+      "ORUSNL-PROD", "ORUSIT-PROD", "ORUSGB-PROD", "ORUSES-PROD", "ORUSDE-PROD", "ORUSBE-PROD", "ORUSFR-PROD"
+    ],
+    "use_case_group": {
+      "sourceType": "LOCAL_NO_AUTH",
+      "ssoGroupNames": [
+        "DAQ_Contributor"
+      ]
+    }
+  }
+}

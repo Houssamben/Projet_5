@@ -1,0 +1,298 @@
+{
+  "DQC": {
+    "cos_connection": [
+      {
+        "name": "dqc",
+        "cos": "co002i007517",
+        "bucket": "bu002i013398",
+        "path_in_bucket": "/design",
+        "managed_data_subpath": "/dataiku",
+        "host": "s3.direct.eu-fr2.cloud-object-storage.appdomain.cloud",
+        "port": "4241",
+        "ecosystem": ""
+      },
+      {
+        "name": "dqc_reg",
+        "cos": "co002i007517",
+        "bucket": "bu002i018783",
+        "path_in_bucket": "/design",
+        "managed_data_subpath": "/dataiku",
+        "host": "s3.direct.eu-fr2.cloud-object-storage.appdomain.cloud",
+        "port": "4362",
+        "ecosystem": ""
+      }
+    ],
+    "db_connection": [
+      {
+        "name": "dqc",
+        "resource": "pg002i011908",
+        "host": "svc-np.paas.echonet",
+        "port": "4276",
+        "db": "ibmclouddb",
+        "schema": "own_AP91971_dqc"
+      },
+      {
+        "name": "dqc_reg",
+        "resource": "pg002i011908",
+        "host": "svc-np.paas.echonet",
+        "port": "4276",
+        "db": "ibmclouddb",
+        "schema": "own_AP91971_dqc_reg"
+      }
+    ]
+  },
+  "SRW": {
+    "cos_connection": [
+      {
+        "name": "srw",
+        "cos": "co002i007110",
+        "bucket": "bu002i012657",
+        "path_in_bucket": "/design",
+        "managed_data_subpath": "/dataiku",
+        "host": "s3.direct.eu-fr2.cloud-object-storage.appdomain.cloud",
+        "port": "4205",
+        "ecosystem": ""
+      },
+      {
+        "name": "cft-srw",
+        "cos": "co002i007765",
+        "bucket": "bu002i013831",
+        "path_in_bucket": "",
+        "managed_data_subpath": "/dataiku",
+        "host": "s3.direct.eu-fr2.cloud-object-storage.appdomain.cloud",
+        "port": "4268",
+        "ecosystem": ""
+      }
+    ],
+    "db_connection": [
+      {
+        "name": "srw",
+        "resource": "pg002i011376",
+        "host": "svc-np.paas.echonet",
+        "port": "4256",
+        "db": "ibmclouddb",
+        "schema": "own_AP90601_srw"
+      }
+    ]
+  },
+  "LIN": {
+    "cos_connection": [
+      {
+        "name": "lin",
+        "cos": "co002i007114",
+        "bucket": "bu002i012663",
+        "path_in_bucket": "/design",
+        "managed_data_subpath": "/dataiku",
+        "host": "s3.direct.eu-fr2.cloud-object-storage.appdomain.cloud",
+        "port": "4204",
+        "ecosystem": ""
+      }
+    ],
+    "db_connection": [
+      {
+        "name": "lin",
+        "resource": "pg002i011290",
+        "host": "svc-np.paas.echonet",
+        "port": "4250",
+        "db": "ibmclouddb",
+        "schema": "own_AP90609_lin"
+      }
+    ]
+  },
+  "AVE": {
+    "cos_connection": [
+      {
+        "name": "ave",
+        "cos": "co002i009289",
+        "bucket": "bu002i017143",
+        "path_in_bucket": "/design",
+        "managed_data_subpath": "/dataiku",
+        "host": "s3.direct.eu-fr2.cloud-object-storage.appdomain.cloud",
+        "port": "",
+        "ecosystem": ""
+      },
+      {
+        "name": "cft-ave",
+        "cos": "co002i009677",
+        "bucket": "bu002i017831",
+        "path_in_bucket": "/",
+        "managed_data_subpath": "/dataiku",
+        "host": "s3.direct.eu-fr2.cloud-object-storage.appdomain.cloud",
+        "port": "4341",
+        "ecosystem": ""
+      }
+    ],
+    "db_connection": [
+      {
+        "name": "ave",
+        "resource": "pg002i013819",
+        "host": "svc-np.paas.echonet",
+        "port": "30442",
+        "db": "ibmclouddb",
+        "schema": "own_a101501_ave"
+      }
+    ]
+  },
+  "COR": {
+    "cos_connection": [
+      {
+        "name": "cor",
+        "cos": "co002i009314",
+        "bucket": "bu002i017186",
+        "path_in_bucket": "/design",
+        "managed_data_subpath": "/dataiku",
+        "host": "s3.direct.eu-fr2.cloud-object-storage.appdomain.cloud",
+        "port": "",
+        "ecosystem": ""
+      }
+    ],
+    "db_connection": [
+      {
+        "name": "cor",
+        "resource": "pg002i013823",
+        "host": "svc-np.paas.echonet",
+        "port": "31630",
+        "db": "ibmclouddb",
+        "schema": "own_a101475_cor"
+      }
+    ]
+  },
+  "BMT": {
+    "cos_connection": [
+      {
+        "name": "bmt",
+        "cos": "co002i009317",
+        "bucket": "bu002i017190",
+        "path_in_bucket": "/design",
+        "managed_data_subpath": "/dataiku",
+        "host": "s3.direct.eu-fr2.cloud-object-storage.appdomain.cloud",
+        "port": "",
+        "ecosystem": ""
+      }
+    ],
+    "db_connection": [
+      {
+        "name": "bmt",
+        "resource": "pg002i013826",
+        "host": "svc-np.paas.echonet",
+        "port": "31792",
+        "db": "ibmclouddb",
+        "schema": "own_a101473_bmt"
+      }
+    ]
+  },
+  "ALM": {
+    "cos_connection": [],
+    "db_connection": []
+  },
+  "RSK": {
+    "cos_connection": [
+      {
+        "name": "rsk",
+        "cos": "co002i007264",
+        "bucket": "bu002i012913",
+        "path_in_bucket": "/design",
+        "managed_data_subpath": "/dataiku",
+        "host": "s3.direct.eu-fr2.cloud-object-storage.appdomain.cloud",
+        "port": "4215",
+        "ecosystem": ""
+      },
+      {
+        "name": "cft-rsk",
+        "cos": "co002i007950",
+        "bucket": "bu002i014224",
+        "path_in_bucket": "",
+        "managed_data_subpath": "/dataiku",
+        "host": "s3.direct.eu-fr2.cloud-object-storage.appdomain.cloud",
+        "port": "4307",
+        "ecosystem": ""
+      }
+    ],
+    "db_connection": [
+      {
+        "name": "rsk",
+        "resource": "pg002i011595",
+        "host": "svc-np.paas.echonet",
+        "port": "4262",
+        "db": "ibmclouddb",
+        "schema": "own_AP91643_rkrs"
+      }
+    ]
+  },
+  "FIN": {
+    "cos_connection": [
+      {
+        "name": "shared-fin",
+        "cos": "co002i006316",
+        "bucket": "bu002i017921",
+        "path_in_bucket": "/design",
+        "managed_data_subpath": "/dataiku",
+        "host": "s3.direct.eu-fr2.cloud-object-storage.appdomain.cloud",
+        "port": "4336",
+        "ecosystem": "EC002I000858"
+      }
+    ],
+    "db_connection": [
+      {
+        "name": "shared-fin",
+        "resource": "pg002i014696",
+        "host": "svc-np.paas.echonet",
+        "port": "32171",
+        "db": "ibmclouddb",
+        "schema": "own_ap59641_finance"
+      }
+    ]
+  },
+  "OPE": {
+    "cos_connection": [
+      {
+        "name": "shared-ope",
+        "cos": "co002i006316",
+        "bucket": "bu002i018280",
+        "path_in_bucket": "/design",
+        "managed_data_subpath": "/dataiku",
+        "host": "s3.direct.eu-fr2.cloud-object-storage.appdomain.cloud",
+        "port": "4354",
+        "ecosystem": "EC002I000858"
+      }
+    ],
+    "db_connection": [
+      {
+        "name": "shared-ope",
+        "resource": "pg002i014696",
+        "host": "svc-np.paas.echonet",
+        "port": "32171",
+        "db": "ibmclouddb",
+        "schema": "own_ap59641_operation"
+      }
+    ]
+  },
+  "BUS": {
+    "cos_connection": [
+      {
+        "name": "shared-bus",
+        "cos": "co002i006316",
+        "bucket": "bu002i020079",
+        "path_in_bucket": "/design",
+        "managed_data_subpath": "/dataiku",
+        "host": "s3.direct.eu-fr2.cloud-object-storage.appdomain.cloud",
+        "port": "4376",
+        "ecosystem": "EC002I000858"
+      }
+    ],
+    "db_connection": [
+      {
+        "name": "shared-bus",
+        "resource": "pg002i014696",
+        "host": "svc-np.paas.echonet",
+        "port": "32171",
+        "db": "ibmclouddb",
+        "schema": "own_ap59641_business"
+      }
+    ]
+  },
+  "DAQ": {
+    "cos_connection": [],
+    "db_connection": []
+  }
+}

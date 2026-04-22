@@ -1,0 +1,775 @@
+{
+  "DQC": {
+    "name": "Data quality controls",
+    "ap_code": "AP91971",
+    "lots": [
+      {
+        "lot": 1,
+        "trigram": "DQC",
+        "name": "Data quality controls",
+        "activate_lot_group": true,
+        "lot_group": {
+          "sourceType": "LOCAL",
+          "ssoGroupNames": []
+        }
+      },
+      {
+        "lot": 2,
+        "trigram": "REG",
+        "name": "Regulatory controls",
+        "activate_lot_group": true,
+        "lot_group": {
+          "sourceType": "LOCAL",
+          "ssoGroupNames": []
+        }
+      }
+    ],
+    "cos_connection": [
+      "s3-dqc-co002i007517",
+      "s3-dqc_reg-co002i007517"
+    ],
+    "db_connection": [
+      "db-dqc-pg002i011908",
+      "db-dqc_reg-pg002i011908"
+    ],
+    "data_sources": [
+      {
+        "name": "SIELE",
+        "datasets": [
+          "siele_daily_logs",
+          "acegap_be_daily_v1",
+          "acegap_de_daily_v1",
+          "acegap_es_daily_v1",
+          "acegap_fr_daily_v1",
+          "acegap_gb_daily_v1",
+          "acegap_it_daily_v1",
+          "acegap_nl_daily_v1",
+          "adresp_be_daily_v1",
+          "adresp_de_daily_v1",
+          "adresp_es_daily_v1",
+          "adresp_fr_daily_v1",
+          "adresp_gb_daily_v1",
+          "adresp_it_daily_v1",
+          "adresp_nl_daily_v1",
+          "apporp_be_daily_v1",
+          "apporp_de_daily_v1",
+          "apporp_es_daily_v1",
+          "apporp_fr_daily_v1",
+          "apporp_gb_daily_v1",
+          "apporp_it_daily_v1",
+          "apporp_nl_daily_v1",
+          "covenp_be_daily_v1",
+          "covenp_de_daily_v1",
+          "covenp_es_daily_v1",
+          "covenp_fr_daily_v1",
+          "covenp_gb_daily_v1",
+          "covenp_it_daily_v1",
+          "covenp_nl_daily_v1",
+          "ddemfp_be_daily_v1",
+          "ddemfp_de_daily_v1",
+          "ddemfp_es_daily_v1",
+          "ddemfp_fr_daily_v1",
+          "ddemfp_gb_daily_v1",
+          "ddemfp_it_daily_v1",
+          "ddemfp_nl_daily_v1",
+          "dtierp_be_daily_v1",
+          "dtierp_de_daily_v1",
+          "dtierp_es_daily_v1",
+          "dtierp_fr_daily_v1",
+          "dtierp_gb_daily_v1",
+          "dtierp_it_daily_v1",
+          "dtierp_nl_daily_v1",
+          "emailp_be_daily_v1",
+          "emailp_de_daily_v1",
+          "emailp_es_daily_v1",
+          "emailp_fr_daily_v1",
+          "emailp_gb_daily_v1",
+          "emailp_it_daily_v1",
+          "emailp_nl_daily_v1",
+          "entrep_be_daily_v1",
+          "entrep_de_daily_v1",
+          "entrep_es_daily_v1",
+          "entrep_fr_daily_v1",
+          "entrep_gb_daily_v1",
+          "entrep_it_daily_v1",
+          "entrep_nl_daily_v1",
+          "estrup_be_daily_v1",
+          "estrup_de_daily_v1",
+          "estrup_es_daily_v1",
+          "estrup_fr_daily_v1",
+          "estrup_gb_daily_v1",
+          "estrup_it_daily_v1",
+          "estrup_nl_daily_v1",
+          "idunip_be_daily_v1",
+          "idunip_de_daily_v1",
+          "idunip_es_daily_v1",
+          "idunip_fr_daily_v1",
+          "idunip_gb_daily_v1",
+          "idunip_it_daily_v1",
+          "idunip_nl_daily_v1",
+          "lsonsp_be_daily_v1",
+          "lsonsp_de_daily_v1",
+          "lsonsp_es_daily_v1",
+          "lsonsp_fr_daily_v1",
+          "lsonsp_gb_daily_v1",
+          "lsonsp_it_daily_v1",
+          "lsonsp_nl_daily_v1",
+          "nagrep_be_daily_v1",
+          "nagrep_de_daily_v1",
+          "nagrep_es_daily_v1",
+          "nagrep_fr_daily_v1",
+          "nagrep_gb_daily_v1",
+          "nagrep_it_daily_v1",
+          "nagrep_nl_daily_v1",
+          "pcprsp_be_daily_v1",
+          "pcprsp_de_daily_v1",
+          "pcprsp_es_daily_v1",
+          "pcprsp_fr_daily_v1",
+          "pcprsp_gb_daily_v1",
+          "pcprsp_it_daily_v1",
+          "pcprsp_nl_daily_v1",
+          "persop_be_daily_v1",
+          "persop_de_daily_v1",
+          "persop_es_daily_v1",
+          "persop_fr_daily_v1",
+          "persop_gb_daily_v1",
+          "persop_it_daily_v1",
+          "persop_nl_daily_v1",
+          "pphysp_be_daily_v1",
+          "pphysp_de_daily_v1",
+          "pphysp_es_daily_v1",
+          "pphysp_fr_daily_v1",
+          "pphysp_gb_daily_v1",
+          "pphysp_it_daily_v1",
+          "pphysp_nl_daily_v1",
+          "profip_be_daily_v1",
+          "profip_de_daily_v1",
+          "profip_es_daily_v1",
+          "profip_fr_daily_v1",
+          "profip_gb_daily_v1",
+          "profip_it_daily_v1",
+          "profip_nl_daily_v1",
+          "soctep_be_daily_v1",
+          "soctep_de_daily_v1",
+          "soctep_es_daily_v1",
+          "soctep_fr_daily_v1",
+          "soctep_gb_daily_v1",
+          "soctep_it_daily_v1",
+          "soctep_nl_daily_v1",
+          "tablep_be_daily_v1",
+          "tablep_de_daily_v1",
+          "tablep_es_daily_v1",
+          "tablep_fr_daily_v1",
+          "tablep_gb_daily_v1",
+          "tablep_it_daily_v1",
+          "tablep_nl_daily_v1"
+        ]
+      },
+      {
+        "name": "ODESSA",
+        "datasets": [
+          "lqm_daily_logs",
+          "agency_address_fr_daily_v1",
+          "agency_address_gb_daily_v1",
+          "agency_address_it_daily_v1",
+          "agency_fr_daily_v1",
+          "agency_gb_daily_v1",
+          "agency_it_daily_v1",
+          "element_detail_fr_daily_v1",
+          "element_detail_gb_daily_v1",
+          "element_detail_it_daily_v1",
+          "element_fr_daily_v1",
+          "element_gb_daily_v1",
+          "element_it_daily_v1",
+          "parent_vendor_fr_daily_v1",
+          "parent_vendor_gb_daily_v1",
+          "parent_vendor_it_daily_v1",
+          "party_address_fr_daily_v1",
+          "party_address_gb_daily_v1",
+          "party_address_it_daily_v1",
+          "vendor_branch_fr_daily_v1",
+          "vendor_branch_gb_daily_v1",
+          "vendor_branch_it_daily_v1",
+          "vendor_financial_brand_fr_daily_v1",
+          "vendor_financial_brand_gb_daily_v1",
+          "vendor_financial_brand_it_daily_v1",
+          "vendor_fr_daily_v1",
+          "vendor_gb_daily_v1",
+          "vendor_it_daily_v1",
+          "vendor_legal_entity_fr_daily_v1",
+          "vendor_legal_entity_gb_daily_v1",
+          "vendor_legal_entity_it_daily_v1",
+          "vendor_type_fr_daily_v1",
+          "vendor_type_gb_daily_v1",
+          "vendor_type_it_daily_v1"
+        ]
+      },
+      {
+        "name": "IAG",
+        "datasets": [
+          "iag_daily_logs",
+          "entity_be_daily_v1",
+          "entity_de_daily_v1",
+          "entity_es_daily_v1",
+          "entity_fr_daily_v1",
+          "entity_gb_daily_v1",
+          "entity_it_daily_v1",
+          "entity_nl_daily_v1",
+          "identity_be_daily_v1",
+          "identity_de_daily_v1",
+          "identity_es_daily_v1",
+          "identity_fr_daily_v1",
+          "identity_gb_daily_v1",
+          "identity_it_daily_v1",
+          "identity_nl_daily_v1"
+        ]
+      }
+    ],
+    "shared_cos_connection": [],
+    "shared_db_connection": [],
+    "shared_data_collection": [],
+    "use_case_groups": {
+      "admin_group": {
+        "sourceType": "LOCAL",
+        "ssoGroupNames": []
+      },
+      "contributor_group": {
+        "sourceType": "LOCAL",
+        "ssoGroupNames": []
+      },
+      "consumer_group": {
+        "sourceType": "LOCAL",
+        "ssoGroupNames": []
+      }
+    }
+  },
+  "SRW": {
+    "name": "Sales Renewals",
+    "ap_code": "AP90601",
+    "lots": [
+      {
+        "lot": 1,
+        "trigram": "SRW",
+        "name": "Sales Renewals",
+        "activate_lot_group": false,
+        "lot_group": {
+          "sourceType": "LOCAL",
+          "ssoGroupNames": []
+        }
+      }
+    ],
+    "cos_connection": ["s3-srw-co002i007110" , "s3-cft-srw-co002i007765"],
+    "db_connection": ["db-srw-pg002i011376"],
+    "data_sources": [
+      {
+        "name": "SIELE",
+        "datasets": [
+            "siele_monthly_logs",
+			"ddemfp_de_monthly_v1",
+			"j1sirp_de_monthly_v1",
+			"klotfp_de_monthly_v1",
+			"ktratp_de_monthly_v1",
+			"mkdctp_de_monthly_v1",
+			"odetmp_de_monthly_v1",
+			"tablep_de_monthly_v1",
+			"xaprsp_de_monthly_v1",
+			"xjbbap_de_monthly_v1",
+			"xjbbap_de_monthly_v1",
+			"xaprsp_de_monthly_v1",
+			"tablep_de_monthly_v1",
+			"odetmp_de_monthly_v1",
+			"mkdctp_de_monthly_v1",
+			"ktratp_de_monthly_v1",
+			"klotfp_de_monthly_v1",
+			"j1sirp_de_monthly_v1",
+			"ddemfp_de_monthly_v1",
+			"xjbbap_es_monthly_v1",
+			"xaprsp_es_monthly_v1",
+			"tablep_es_monthly_v1",
+			"odetmp_es_monthly_v1",
+			"mkdctp_es_monthly_v1",
+			"ktratp_es_monthly_v1",
+			"klotfp_es_monthly_v1",
+			"j1sirp_es_monthly_v1",
+			"ddemfp_es_monthly_v1",
+			"xjbbap_fr_monthly_v1",
+			"xaprsp_fr_monthly_v1",
+			"tablep_fr_monthly_v1",
+			"odetmp_fr_monthly_v1",
+			"mkdctp_fr_monthly_v1",
+			"ktratp_fr_monthly_v1",
+			"klotfp_fr_monthly_v1",
+			"j1sirp_fr_monthly_v1",
+			"ddemfp_fr_monthly_v1",
+			"xjbbap_gb_monthly_v1",
+			"xaprsp_gb_monthly_v1",
+			"tablep_gb_monthly_v1",
+			"odetmp_gb_monthly_v1",
+			"mkdctp_gb_monthly_v1",
+			"ktratp_gb_monthly_v1",
+			"klotfp_gb_monthly_v1",
+			"j1sirp_gb_monthly_v1",
+			"ddemfp_gb_monthly_v1",
+			"xjbbap_it_monthly_v1",
+			"xaprsp_it_monthly_v1",
+			"tablep_it_monthly_v1",
+			"odetmp_it_monthly_v1",
+			"mkdctp_it_monthly_v1",
+			"ktratp_it_monthly_v1",
+			"klotfp_it_monthly_v1",
+			"j1sirp_it_monthly_v1",
+			"ddemfp_it_monthly_v1",
+			"xjbbap_nl_monthly_v1",
+			"xaprsp_nl_monthly_v1",
+			"tablep_nl_monthly_v1",
+			"odetmp_nl_monthly_v1",
+			"mkdctp_nl_monthly_v1",
+			"ktratp_nl_monthly_v1",
+			"klotfp_nl_monthly_v1",
+			"j1sirp_nl_monthly_v1",
+			"ddemfp_nl_monthly_v1"
+        ]
+      },
+      {
+        "name": "ORUS",
+        "datasets": [
+			"marche_be_monthly_v1",
+            "marche_de_monthly_v1",
+            "marche_es_monthly_v1",
+            "marche_fr_monthly_v1",
+            "marche_gb_monthly_v1",
+            "marche_ibl_ctrqtd_be_monthly_v1",
+            "marche_ibl_ctrqtd_de_monthly_v1",
+            "marche_ibl_ctrqtd_es_monthly_v1",
+            "marche_ibl_ctrqtd_fr_monthly_v1",
+            "marche_ibl_ctrqtd_gb_monthly_v1",
+            "marche_ibl_ctrqtd_it_monthly_v1",
+            "marche_ibl_ctrqtd_nl_monthly_v1",
+            "marche_it_monthly_v1",
+            "marche_nl_monthly_v1",
+            "orus_monthly_logs",
+            "partner_ctr_dem_be_monthly_v1",
+            "partner_ctr_dem_de_monthly_v1",
+            "partner_ctr_dem_es_monthly_v1",
+            "partner_ctr_dem_fr_monthly_v1",
+            "partner_ctr_dem_gb_monthly_v1",
+            "partner_ctr_dem_it_monthly_v1",
+            "partner_ctr_dem_nl_monthly_v1"
+        ]
+      },
+      {
+        "name": "DCP_TRUSTED",
+        "datasets": [
+            "dcp_trusted_monthly_logs",
+			"contract_be_monthly_v1",
+			"leasing_financed_asset_be_monthly_v1",
+			"leasing_financing_condition_be_monthly_v1",
+			"leasing_financing_condition_outstanding_be_monthly_v1",
+			"leasing_received_guarantee_be_monthly_v1",
+			"leasing_schedule_be_monthly_v1",
+			"leasing_schedule_step_be_monthly_v1",
+			"local_ls_financing_legal_company_be_monthly_v1",
+			"local_oper_3rd_party_last_updated_contact_data_be_monthly_v1",
+			"local_operational_third_party_be_monthly_v1",
+			"third_party_role_be_monthly_v1",
+			"third_party_role_contact_data_be_monthly_v1",
+			"typ_leasing_asset_mark_be_monthly_v1",
+			"typ_leasing_commercial_product_be_monthly_v1",
+			"typ_leasing_financial_product_be_monthly_v1",
+			"typ_leasing_received_guarantee_be_monthly_v1",
+			"typ_partition_be_monthly_v1",
+			"contract_de_monthly_v1",
+			"leasing_financed_asset_de_monthly_v1",
+			"leasing_financing_condition_de_monthly_v1",
+			"leasing_financing_condition_outstanding_de_monthly_v1",
+			"leasing_received_guarantee_de_monthly_v1",
+			"leasing_schedule_de_monthly_v1",
+			"leasing_schedule_step_de_monthly_v1",
+			"local_ls_financing_legal_company_de_monthly_v1",
+			"local_oper_3rd_party_last_updated_contact_data_de_monthly_v1",
+			"local_operational_third_party_de_monthly_v1",
+			"third_party_role_de_monthly_v1",
+			"third_party_role_contact_data_de_monthly_v1",
+			"typ_leasing_asset_mark_de_monthly_v1",
+			"typ_leasing_commercial_product_de_monthly_v1",
+			"typ_leasing_financial_product_de_monthly_v1",
+			"typ_leasing_received_guarantee_de_monthly_v1",
+			"typ_partition_de_monthly_v1",
+			"contract_es_monthly_v1",
+			"leasing_financed_asset_es_monthly_v1",
+			"leasing_financing_condition_es_monthly_v1",
+			"leasing_financing_condition_outstanding_es_monthly_v1",
+			"leasing_received_guarantee_es_monthly_v1",
+			"leasing_schedule_es_monthly_v1",
+			"leasing_schedule_step_es_monthly_v1",
+			"local_ls_financing_legal_company_es_monthly_v1",
+			"local_oper_3rd_party_last_updated_contact_data_es_monthly_v1",
+			"local_operational_third_party_es_monthly_v1",
+			"third_party_role_es_monthly_v1",
+			"third_party_role_contact_data_es_monthly_v1",
+			"typ_leasing_asset_mark_es_monthly_v1",
+			"typ_leasing_commercial_product_es_monthly_v1",
+			"typ_leasing_financial_product_es_monthly_v1",
+			"typ_leasing_received_guarantee_es_monthly_v1",
+			"typ_partition_es_monthly_v1",
+			"contract_fr_monthly_v1",
+			"leasing_financed_asset_fr_monthly_v1",
+			"leasing_financing_condition_fr_monthly_v1",
+			"leasing_financing_condition_outstanding_fr_monthly_v1",
+			"leasing_received_guarantee_fr_monthly_v1",
+			"leasing_schedule_fr_monthly_v1",
+			"leasing_schedule_step_fr_monthly_v1",
+			"local_ls_financing_legal_company_fr_monthly_v1",
+			"local_oper_3rd_party_last_updated_contact_data_fr_monthly_v1",
+			"local_operational_third_party_fr_monthly_v1",
+			"third_party_role_fr_monthly_v1",
+			"third_party_role_contact_data_fr_monthly_v1",
+			"typ_leasing_asset_mark_fr_monthly_v1",
+			"typ_leasing_commercial_product_fr_monthly_v1",
+			"typ_leasing_financial_product_fr_monthly_v1",
+			"typ_leasing_received_guarantee_fr_monthly_v1",
+			"typ_partition_fr_monthly_v1",
+			"contract_gb_monthly_v1",
+			"leasing_financed_asset_gb_monthly_v1",
+			"leasing_financing_condition_gb_monthly_v1",
+			"leasing_financing_condition_outstanding_gb_monthly_v1",
+			"leasing_received_guarantee_gb_monthly_v1",
+			"leasing_schedule_gb_monthly_v1",
+			"leasing_schedule_step_gb_monthly_v1",
+			"local_ls_financing_legal_company_gb_monthly_v1",
+			"local_oper_3rd_party_last_updated_contact_data_gb_monthly_v1",
+			"local_operational_third_party_gb_monthly_v1",
+			"third_party_role_gb_monthly_v1",
+			"third_party_role_contact_data_gb_monthly_v1",
+			"typ_leasing_asset_mark_gb_monthly_v1",
+			"typ_leasing_commercial_product_gb_monthly_v1",
+			"typ_leasing_financial_product_gb_monthly_v1",
+			"typ_leasing_received_guarantee_gb_monthly_v1",
+			"typ_partition_gb_monthly_v1",
+			"contract_it_monthly_v1",
+			"leasing_financed_asset_it_monthly_v1",
+			"leasing_financing_condition_it_monthly_v1",
+			"leasing_financing_condition_outstanding_it_monthly_v1",
+			"leasing_received_guarantee_it_monthly_v1",
+			"leasing_schedule_it_monthly_v1",
+			"leasing_schedule_step_it_monthly_v1",
+			"local_ls_financing_legal_company_it_monthly_v1",
+			"local_oper_3rd_party_last_updated_contact_data_it_monthly_v1",
+			"local_operational_third_party_it_monthly_v1",
+			"third_party_role_it_monthly_v1",
+			"third_party_role_contact_data_it_monthly_v1",
+			"typ_leasing_asset_mark_it_monthly_v1",
+			"typ_leasing_commercial_product_it_monthly_v1",
+			"typ_leasing_financial_product_it_monthly_v1",
+			"typ_leasing_received_guarantee_it_monthly_v1",
+			"typ_partition_it_monthly_v1",
+			"contract_nl_monthly_v1",
+			"leasing_financed_asset_nl_monthly_v1",
+			"leasing_financing_condition_nl_monthly_v1",
+			"leasing_financing_condition_outstanding_nl_monthly_v1",
+			"leasing_received_guarantee_nl_monthly_v1",
+			"leasing_schedule_nl_monthly_v1",
+			"leasing_schedule_step_nl_monthly_v1",
+			"local_ls_financing_legal_company_nl_monthly_v1",
+			"local_oper_3rd_party_last_updated_contact_data_nl_monthly_v1",
+			"local_operational_third_party_nl_monthly_v1",
+			"third_party_role_nl_monthly_v1",
+			"third_party_role_contact_data_nl_monthly_v1",
+			"typ_leasing_asset_mark_nl_monthly_v1",
+			"typ_leasing_commercial_product_nl_monthly_v1",
+			"typ_leasing_financial_product_nl_monthly_v1",
+			"typ_leasing_received_guarantee_nl_monthly_v1",
+			"typ_partition_nl_monthly_v1"
+        ]
+      }
+    ],
+    "shared_cos_connection": [],
+    "shared_db_connection": [],
+    "shared_data_collection": [],
+    "u,se_case_group": {
+      "admin_group": {
+        "sourceType": "LOCAL",
+        "ssoGroupNames": []
+      },
+      "contributor_group": {
+        "sourceType": "LOCAL",
+        "ssoGroupNames": []
+      },
+      "consumer_group": {
+        "sourceType": "LOCAL",
+        "ssoGroupNames": []
+      }
+    }
+  },
+  "LIN": {
+    "name": "Leasing Inside",
+    "ap_code": "AP90609",
+    "lots": [
+      {
+        "lot": 1,
+        "trigram": "LIN",
+        "name": "Leasing Inside",
+        "activate_lot_group": false,
+        "lot_group": {
+          "sourceType": "LOCAL",
+          "ssoGroupNames": []
+        }
+      }
+    ],
+    "cos_connection": ["s3-lin-co002i007114"],
+    "db_connection": ["db-lin-pg002i011290"],
+    "data_sources": [
+      {
+        "name": "DCP_TRUSTED",
+        "datasets": [
+          "leasing_financing_condition_fr_monthly_v1",
+          "contract_fr_monthly_v1",
+          "local_operational_third_party_fr_monthly_v1",
+          "local_leasing_authorization_fr_monthly_v1",
+          "leasing_financing_condition_outstanding_fr_monthly_v1",
+          "local_legal_entity_fr_monthly_v1",
+          "dcp_trusted_monthly_logs"
+        ]
+      },
+      {
+        "name": "BCEF",
+        "datasets": [
+          "vBEJARB_fr_monthly_v1",
+          "vBEJBIL_fr_monthly_v1",
+          "vBEJLIG_fr_monthly_v1",
+          "vBGAARB_fr_monthly_v1",
+          "vBGABIL_fr_monthly_v1",
+          "vBGALIG_fr_monthly_v1",
+          "vCEDARB_fr_monthly_v1",
+          "vCEDENC_fr_monthly_v1",
+          "vENGARB_fr_monthly_v1",
+          "vFDCDIM_fr_monthly_v1",
+          "vGAFDIM_fr_monthly_v1",
+          "vNCODIM_fr_monthly_v1",
+          "vOMEAUT_fr_monthly_v1",
+          "vOMEDEN_fr_monthly_v1",
+          "vOMETIC_fr_monthly_v1",
+          "vOMEUTI_fr_monthly_v1",
+          "vPERDIM_fr_monthly_v1",
+          "vRCODIM_fr_monthly_v1",
+          "vSIEDIM_fr_monthly_v1",
+          "bcef_monthly_logs"
+        ]
+      },
+      {
+        "name": "ORUS",
+        "datasets": [
+          "marche_ibl_ctrqtd_fr_monthly_v1",
+          "orus_monthly_logs"
+        ]
+      },
+      {
+        "name": "SIELE",
+        "datasets": [
+          "siele_monthly_logs"
+        ]
+      }
+    ],
+    "shared_cos_connection": [],
+    "shared_db_connection": [],
+    "shared_data_collection": [],
+    "use_case_group": {
+      "admin_group": {
+        "sourceType": "LOCAL",
+        "ssoGroupNames": []
+      },
+      "contributor_group": {
+        "sourceType": "LOCAL",
+        "ssoGroupNames": []
+      },
+      "consumer_group": {
+        "sourceType": "LOCAL",
+        "ssoGroupNames": []
+      }
+    }
+  },
+  "AVE": {
+    "name": "Asset Valuation Engine",
+    "ap_code": "A101501",
+    "lots": [
+      {
+        "lot": 1,
+        "trigram": "AVE",
+        "name": "Asset Valuation Engine",
+        "activate_lot_group": false,
+        "lot_group": {
+          "sourceType": "LOCAL",
+          "ssoGroupNames": []
+        }
+      }
+    ],
+    "cos_connection": ["s3-ave-co002i009289", "s3-cft-ave-co002i009677"],
+    "db_connection": ["db-ave-pg002i013819"],
+    "data_sources": [],
+    "shared_cos_connection": [],
+    "shared_db_connection": [],
+    "shared_data_collection": [],
+    "use_case_group": {
+      "admin_group": {
+        "sourceType": "LOCAL",
+        "ssoGroupNames": []
+      },
+      "contributor_group": {
+        "sourceType": "LOCAL",
+        "ssoGroupNames": []
+      },
+      "consumer_group": {
+        "sourceType": "LOCAL",
+        "ssoGroupNames": []
+      }
+    }
+  },
+  "COR": {
+    "name": "Collection & Recovery Reporting",
+    "ap_code": "A101475",
+    "lots": [
+      {
+        "lot": 1,
+        "trigram": "COR",
+        "name": "Collection & Recovery Reporting",
+        "activate_lot_group": false,
+        "lot_group": {
+          "sourceType": "LOCAL",
+          "ssoGroupNames": []
+        }
+      }
+    ],
+    "cos_connection": [
+      "s3-cor-co002i009314"
+    ],
+    "db_connection": [
+      "db-cor-pg002i013823"
+    ],
+    "data_sources": [],
+    "shared_cos_connection": [],
+    "shared_db_connection": [
+      "ORUSGB-PROD",
+      "ORUSNL-PROD",
+      "ORUSBE-PROD",
+      "ORUSES-PROD",
+      "ORUSFR-PROD",
+      "ORUSIT-PROD",
+      "ORUSDE-PROD"
+    ],
+    "shared_data_collection": [],
+    "use_case_group": {
+      "admin_group": {
+        "sourceType": "LOCAL",
+        "ssoGroupNames": []
+      },
+      "contributor_group": {
+        "sourceType": "LOCAL",
+        "ssoGroupNames": []
+      },
+      "consumer_group": {
+        "sourceType": "LOCAL",
+        "ssoGroupNames": []
+      }
+    }
+  },
+  "BMT": {
+    "name": "Boost My Transfo",
+    "ap_code": "A101473",
+    "lots": [
+      {
+        "lot": 1,
+        "trigram": "BMT",
+        "name": "Boost My Transfo",
+        "activate_lot_group": false,
+        "lot_group": {
+          "sourceType": "LOCAL",
+          "ssoGroupNames": []
+        }
+      }
+    ],
+    "cos_connection": [
+      "s3-bmt-co002i009317"
+    ],
+    "db_connection": [
+      "db-bmt-pg002i013826"
+    ],
+    "data_sources": [],
+    "shared_cos_connection": [],
+    "shared_db_connection": [
+      "ORUSFR-PROD"
+    ],
+    "shared_data_collection": [],
+    "use_case_group": {
+      "admin_group": {
+        "sourceType": "LOCAL",
+        "ssoGroupNames": []
+      },
+      "contributor_group": {
+        "sourceType": "LOCAL",
+        "ssoGroupNames": []
+      },
+      "consumer_group": {
+        "sourceType": "LOCAL",
+        "ssoGroupNames": []
+      }
+    }
+  },
+  "ALM": {
+    "name": "AMLT",
+    "ap_code": "AP12345",
+    "lots": [
+      {
+        "lot": 1,
+        "trigram": "RNC",
+        "name": "Refinancing Need Calculation",
+        "activate_lot_group": false,
+        "lot_group": {
+          "sourceType": "LOCAL",
+          "ssoGroupNames": []
+        }
+      }
+    ],
+    "cos_connection": [
+      "s3-shared-co002i006316"
+    ],
+    "db_connection": [],
+    "data_sources": [
+      {
+        "name": "DCP_TRUSTED",
+        "datasets": [
+          "dcp_trusted_monthly_logs",
+          "contract_fr_monthly_v1"
+        ]
+      },
+      {
+        "name": "SIELE",
+        "datasets": [
+          "acordp_fr_monthly_v1"
+        ]
+      }
+    ],
+    "shared_cos_connection": [],
+    "shared_db_connection": [],
+    "shared_data_collection": [],
+    "use_case_group": {
+      "admin_group": {
+        "sourceType": "LOCAL_NO_AUTH",
+        "ssoGroupNames": [
+          "ALM_Admin"
+        ]
+      },
+      "contributor_group": {
+        "sourceType": "LOCAL_NO_AUTH",
+        "ssoGroupNames": [
+          "ALM_Contributor"
+        ]
+      },
+      "consumer_group": {
+        "sourceType": "LOCAL_NO_AUTH",
+        "ssoGroupNames": [
+          "ALM_Consumer"
+        ]
+      }
+    }
+  }
+}
