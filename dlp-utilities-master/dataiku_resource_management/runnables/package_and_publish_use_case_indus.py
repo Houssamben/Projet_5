@@ -22,17 +22,21 @@ def main():
         project_key = args.project_key
 
         # Chargement des configurations
-        global_config = load_config(Path(__file__).parent.parent / 'conf' / 'global_config.json')
-        package_config = load_config(
-            Path(__file__).parent.parent / 'conf' / 'design_rd' / 'package_use_case_indus.json'
-        )
+        conf = Path(__file__).parent.parent / 'conf'
+        global_config = load_config(conf / 'global_config.json')
+        design_rd_config = load_config(conf / 'design_rd' / 'package_use_case_indus.json')
 
-        if not global_config or not package_config:
+        if not global_config or not design_rd_config:
             log(LogLevel.ERROR, Step.MAIN, "Configuration manquante, arrêt du script")
             exit(1)
 
         design_rd_host = global_config["design_rd"]["host"]
         deployer_host = global_config["deploy"]["host"]
+
+        package_config = {
+            "use_case_groups":              global_config["use_case_groups"],
+            "deployer_project_permissions": design_rd_config["deployer_project_permissions"],
+        }
 
         log(LogLevel.INFO, Step.MAIN, f"Packaging du projet '{project_key}'")
 

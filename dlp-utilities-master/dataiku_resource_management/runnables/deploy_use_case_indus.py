@@ -28,18 +28,24 @@ def main():
         version = args.version if args.version else ""
 
         # Chargement des configurations
-        global_config = load_config(Path(__file__).parent.parent / 'conf' / 'global_config.json')
-        deploy_config = load_config(
-            Path(__file__).parent.parent / 'conf' / 'design_rd' / 'deploy_use_case_indus.json'
-        )
+        conf = Path(__file__).parent.parent / 'conf'
+        global_config = load_config(conf / 'global_config.json')
+        env_config = load_config(conf / infra_id / 'deploy_use_case_indus.json')
 
-        if not global_config or not deploy_config:
+        if not global_config or not env_config:
             log(LogLevel.ERROR, Step.MAIN, "Configuration manquante, arrêt du script")
             exit(1)
 
         design_rd_host = global_config["design_rd"]["host"]
         deployer_host = global_config["deploy"]["host"]
         automation_host = global_config[infra_id]["host"]
+
+        deploy_config = {
+            "use_case_groups":                 global_config["use_case_groups"],
+            "folder_permissions":              global_config["folder_permissions"],
+            "use_case_project_permissions":    env_config["use_case_project_permissions"],
+            "data_source_project_permissions": env_config["data_source_project_permissions"],
+        }
 
         log(LogLevel.INFO, Step.MAIN, f"Déploiement du projet '{project_key}' sur infra '{infra_id}'")
 

@@ -1,9 +1,4 @@
 {
-  "use_case_groups": {
-    "admin_group": "{use_case_trigram}_Admin",
-    "contributor_group": "{use_case_trigram}_Contributor",
-    "consumer_group": "{use_case_trigram}_Consumer"
-  },
   "deployer_project_permissions": [
     {"group": "Admin",   "read": true, "write": true, "deploy": true, "admin": true},
     {"group": "SRE",     "read": true, "write": true, "deploy": true, "admin": true},

@@ -141,7 +141,7 @@ def extract_project_trigram(project_key):
 
 def get_last_version_bundle(bundles):
     """Return the bundle dict with the highest version number."""
-    log(LogLevel.INFO, Step.BUNDLE, f"Start get_last_version_bundle — bundles count={len(bundles)}")
+    log(LogLevel.INFO, Step.PACKAGE, f"Start get_last_version_bundle — bundles count={len(bundles)}")
     print(f"[INFO] Start running function get_last_version_bundle")
     print(f"[DEBUG] Number of bundles to evaluate = {len(bundles)}")
 
@@ -157,13 +157,13 @@ def get_last_version_bundle(bundles):
 
     print(f"[DEBUG] Latest bundle = {last_bundle['bundleId'] if last_bundle else 'None'}, version = {last_version}")
     print(f"[INFO] End running function get_last_version_bundle")
-    log(LogLevel.DEBUG, Step.BUNDLE, f"Latest bundle = {last_bundle['bundleId'] if last_bundle else 'None'}")
+    log(LogLevel.DEBUG, Step.PACKAGE, f"Latest bundle = {last_bundle['bundleId'] if last_bundle else 'None'}")
     return last_bundle
 
 
 def get_specified_version_bundle(version, bundles):
     """Return the bundle matching the specified version number, or raise ValueError."""
-    log(LogLevel.INFO, Step.BUNDLE, f"Start get_specified_version_bundle — version={version}")
+    log(LogLevel.INFO, Step.PACKAGE, f"Start get_specified_version_bundle — version={version}")
     print(f"[INFO] Start running function get_specified_version_bundle")
     print(f"[DEBUG] Requested version = {version}, number of bundles = {len(bundles)}")
 
@@ -175,7 +175,7 @@ def get_specified_version_bundle(version, bundles):
 
     if not match_bundle:
         available_bundles = [b['bundleId'] for b in bundles]
-        log(LogLevel.WARNING, Step.BUNDLE, f"Version '{version}' not found. Available: {available_bundles}")
+        log(LogLevel.WARNING, Step.PACKAGE, f"Version '{version}' not found. Available: {available_bundles}")
         print(f"[WARNING] Specified version '{version}' not found. Available bundles: {', '.join(available_bundles)}")
         raise ValueError(
             f"The specified version '{version}' does not exist for the project. Available bundles are: "
@@ -184,7 +184,7 @@ def get_specified_version_bundle(version, bundles):
 
     print(f"[DEBUG] Matching bundle found = {match_bundle['bundleId']}")
     print(f"[INFO] End running function get_specified_version_bundle")
-    log(LogLevel.DEBUG, Step.BUNDLE, f"Matching bundle = {match_bundle['bundleId']}")
+    log(LogLevel.DEBUG, Step.PACKAGE, f"Matching bundle = {match_bundle['bundleId']}")
     return match_bundle
 
 

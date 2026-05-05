@@ -73,5 +73,13 @@
     "type": "api",
     "host": "https://ds-api-0r0.leasingsolutions.echonet",
     "infrastructure_name": "api_s02vl9943069_prod"
-  }
+  },
+  "use_case_groups": {
+    "admin_group":       "{use_case_trigram}_Admin",
+    "contributor_group": "{use_case_trigram}_Contributor",
+    "consumer_group":    "{use_case_trigram}_Consumer"
+  },
+  "folder_permissions": [
+    { "group": "administrators", "admin": true, "read": true, "writeContents": true }
+  ]
 }

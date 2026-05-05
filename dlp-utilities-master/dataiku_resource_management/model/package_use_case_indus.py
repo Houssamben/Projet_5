@@ -75,7 +75,7 @@ def extract_project_trigram(project_key):
 
 def extract_bundle_id_version(bundle):
     """Extract the numeric version from a bundle ID string."""
-    log(LogLevel.INFO, Step.BUNDLE, f"Start extract_bundle_id_version — bundle_id={bundle.get('bundleId')}")
+    log(LogLevel.INFO, Step.PACKAGE, f"Start extract_bundle_id_version — bundle_id={bundle.get('bundleId')}")
     print(f"[INFO] Start running function extract_bundle_id_version")
     print(f"[DEBUG] bundle_id = {bundle.get('bundleId')}")
 
@@ -84,13 +84,13 @@ def extract_bundle_id_version(bundle):
 
     print(f"[DEBUG] Extracted bundle version = {result}")
     print(f"[INFO] End running function extract_bundle_id_version")
-    log(LogLevel.DEBUG, Step.BUNDLE, f"Extracted bundle version = {result}")
+    log(LogLevel.DEBUG, Step.PACKAGE, f"Extracted bundle version = {result}")
     return result
 
 
 def define_bundles_version(project):
     """Compute the next bundle version number based on existing exported bundles."""
-    log(LogLevel.INFO, Step.BUNDLE, "Start define_bundles_version")
+    log(LogLevel.INFO, Step.PACKAGE, "Start define_bundles_version")
     print(f"[INFO] Start running function define_bundles_version")
 
     print(f"[INFO] Executing step: listing exported bundles")
@@ -105,7 +105,7 @@ def define_bundles_version(project):
     max_bundle_version = max(bundle_versions, default=0)
     next_version = max_bundle_version + 1
 
-    log(LogLevel.DEBUG, Step.BUNDLE, f"Next bundle version = {next_version}")
+    log(LogLevel.DEBUG, Step.PACKAGE, f"Next bundle version = {next_version}")
     print(f"[DEBUG] Next bundle version = {next_version}")
     print(f"[INFO] End running function define_bundles_version")
     return next_version
@@ -113,7 +113,7 @@ def define_bundles_version(project):
 
 def create_and_publish_bundle(project, bundle_id):
     """Export and publish a bundle with the given ID to the deployer."""
-    log(LogLevel.INFO, Step.BUNDLE, f"Start create_and_publish_bundle — bundle_id={bundle_id}")
+    log(LogLevel.INFO, Step.PACKAGE, f"Start create_and_publish_bundle — bundle_id={bundle_id}")
     print(f"[INFO] Start running function create_and_publish_bundle")
     print(f"[DEBUG] bundle_id = {bundle_id}")
 
@@ -122,7 +122,7 @@ def create_and_publish_bundle(project, bundle_id):
     print(f"[INFO] Executing step: publishing bundle '{bundle_id}' to deployer")
     project.publish_bundle(bundle_id)
 
-    log(LogLevel.INFO, Step.BUNDLE, f"Bundle '{bundle_id}' exported and published")
+    log(LogLevel.INFO, Step.PACKAGE, f"Bundle '{bundle_id}' exported and published")
     print(f"[INFO] End running function create_and_publish_bundle")
 
 

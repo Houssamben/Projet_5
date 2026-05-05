@@ -363,6 +363,7 @@ bundle:
       pip install -r $SOURCES_LOCATION/requirements.txt
 
       # Execute the Python script
+      cd $SOURCES_LOCATION
       python -m dataiku_resource_management.runnables.package_and_publish_use_case_indus --design-rd-user-api-key $DESIGN_RD_USER_API_KEY --deployer-api-key $DEPLOYER_API_KEY --project-key $DEPLOY_PROJECT_KEY
       echo "=== End project bundle stage ==="
   when: manual
@@ -461,6 +462,7 @@ deploy_qual:
       if [ -z "$DESIGN_RD_USER_API_KEY" ]; then echo "ERROR: DESIGN_RD_USER_API_KEY is empty"; fi
 
       # Execute the Python script
+      cd $SOURCES_LOCATION
       python -m dataiku_resource_management.runnables.deploy_use_case_indus --design-rd-user-api-key $DESIGN_RD_USER_API_KEY --deployer-api-key $DEPLOYER_API_KEY --automation-api-key $AUTOMATION_API_KEY --infra-id $INFRA_ID --project-key $DEPLOY_PROJECT_KEY ${DEPLOY_PROJECT_VERSION:+--version $DEPLOY_PROJECT_VERSION}
       echo "=== End project deploy stage for $DEPLOY_ENVIRONMENT ==="
 
@@ -502,6 +504,7 @@ api_bundle:
       pip install -r $SOURCES_LOCATION/requirements.txt
 
       # Execute the Python script
+      cd $SOURCES_LOCATION
       python -m dataiku_resource_management.runnables.package_and_publish_use_case_indus_api --design-rd-user-api-key $DESIGN_RD_USER_API_KEY --deployer-api-key $DEPLOYER_API_KEY --project-key $DEPLOY_PROJECT_KEY --api-service-id $API_SERVICE_ID --automation-api-key-qual $AUTOMATION_API_KEY_QUAL --automation-api-key-int $AUTOMATION_API_KEY_INT --automation-api-key-rd $AUTOMATION_API_KEY_RD --automation-api-key-prd $AUTOMATION_API_KEY_PRD --automation-api-key-pprd $AUTOMATION_API_KEY_PPRD
       echo "=== End API bundle stage ==="
   when: manual
@@ -590,5 +593,6 @@ api_deploy_qual:
       pip install -r $SOURCES_LOCATION/requirements.txt
 
       # Execute the Python script
+      cd $SOURCES_LOCATION
       python -m dataiku_resource_management.runnables.deploy_use_case_indus_api --design-rd-user-api-key $DESIGN_RD_USER_API_KEY --deployer-api-key $DEPLOYER_API_KEY --project-key $DEPLOY_PROJECT_KEY --api-service-id $API_SERVICE_ID --infra-id $INFRA_ID ${API_SERVICE_VERSION:+--api-version $API_SERVICE_VERSION}
       echo "=== End API deploy stage for $DEPLOY_ENVIRONMENT ==="
