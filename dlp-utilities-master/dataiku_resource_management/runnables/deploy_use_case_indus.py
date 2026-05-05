@@ -1,3 +1,4 @@
+import json
 from pathlib import Path
 from core.parser import build_parser
 from core.logger import log, LogLevel, Step
@@ -13,7 +14,6 @@ def main():
             ("deployer-api-key", True),
             ("automation-api-key", True),
             ("infra-id", True),
-            ("project-key", True),
             ("version", False),
         ]
 
@@ -24,8 +24,12 @@ def main():
         deployer_api_key = args.deployer_api_key
         automation_api_key = args.automation_api_key
         infra_id = args.infra_id
-        project_key = args.project_key
         version = args.version if args.version else ""
+
+        print("[INFO] Executing step: reading project key from params.json")
+        with open('params.json', 'r') as f:
+            project_key = json.load(f).get("name")
+        print(f"[INFO] project_key = {project_key}")
 
         # Chargement des configurations
         conf = Path(__file__).parent.parent / 'conf'

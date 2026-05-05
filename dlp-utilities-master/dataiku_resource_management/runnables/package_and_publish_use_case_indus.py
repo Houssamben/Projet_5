@@ -1,3 +1,4 @@
+import json
 from pathlib import Path
 from core.parser import build_parser
 from core.logger import log, LogLevel, Step
@@ -11,7 +12,6 @@ def main():
         params = [
             ("design-rd-user-api-key", True),
             ("deployer-api-key", True),
-            ("project-key", True),
         ]
 
         parser = build_parser(params)
@@ -19,7 +19,11 @@ def main():
 
         design_rd_user_api_key = args.design_rd_user_api_key
         deployer_api_key = args.deployer_api_key
-        project_key = args.project_key
+
+        print("[INFO] Executing step: reading project key from params.json")
+        with open('params.json', 'r') as f:
+            project_key = json.load(f).get("name")
+        print(f"[INFO] project_key = {project_key}")
 
         # Chargement des configurations
         conf = Path(__file__).parent.parent / 'conf'
