@@ -1,3 +1,0 @@
-dataiku-api-client
-requests
-urllib3

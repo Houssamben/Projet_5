@@ -1,8 +1,0 @@
-{
-  "api_groups_permissions": [
-    {"group": "administrators", "queryThroughDeployer": true},
-    {"group": "Data_Engineer",  "queryThroughDeployer": true},
-    {"group": "ITops",          "queryThroughDeployer": true},
-    {"group": "SRE",            "queryThroughDeployer": true}
-  ]
-}
