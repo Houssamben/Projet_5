@@ -1,0 +1,271 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Conception COR Phase 2</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout : bloc de décision « quelle solution ? » en tête, puis 2 onglets (A / B) ; chaque onglet = flux global + étapes groupées par projet Dataiku, décisions métier à droite */
+:root{
+  --bg:#f5f7f9; --panel:#ffffff; --fg:#17212b; --muted:#5b6876; --line:#d6dde4;
+  --ds:#2f6f8f; --dsbg:#e6f0f5; --de:#2f7a5f; --debg:#e5f2ec; --pr:#38457f; --prbg:#e9ebf6;
+  --or:#6b5a8e; --orbg:#efebf6; --hi:#8a4fa8; --hibg:#f4ecf8;
+  --q:#a8620b; --qbg:#fdf3e3; --qline:#e8c48a; --ok:#2f7a5f; --okbg:#e5f2ec; --stop:#b3261e;
+  --sans:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#12171d; --panel:#1a2129; --fg:#e4e9ee; --muted:#9aa7b4; --line:#2e3843;
+  --ds:#7fb8d4; --dsbg:#1b2a33; --de:#7cc6a6; --debg:#1a2b25; --pr:#a5b0e6; --prbg:#21253a;
+  --or:#bba9de; --orbg:#262132; --hi:#d3a3ec; --hibg:#2b2133;
+  --q:#f0b45e; --qbg:#2d2416; --qline:#6b5228; --ok:#7cc6a6; --okbg:#1a2b25; --stop:#f2877f; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#12171d; --panel:#1a2129; --fg:#e4e9ee; --muted:#9aa7b4; --line:#2e3843;
+  --ds:#7fb8d4; --dsbg:#1b2a33; --de:#7cc6a6; --debg:#1a2b25; --pr:#a5b0e6; --prbg:#21253a;
+  --or:#bba9de; --orbg:#262132; --hi:#d3a3ec; --hibg:#2b2133;
+  --q:#f0b45e; --qbg:#2d2416; --qline:#6b5228; --ok:#7cc6a6; --okbg:#1a2b25; --stop:#f2877f; color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--fg);font-family:var(--sans);font-size:15px;line-height:1.5;padding-block:28px 48px;padding-inline:16px}
+.wrap{max-width:1120px;margin:0 auto;display:flex;flex-direction:column;gap:26px}
+h1{font-size:28px;margin:0;text-wrap:balance}
+h2{font-size:13px;text-transform:uppercase;letter-spacing:.08em;margin:0;font-weight:700}
+p{margin:0}
+.lead{color:var(--muted);max-width:75ch}
+code{font-family:var(--mono);font-size:.86em}
+/* choix de solution */
+.choose{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+.sol{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:16px 18px;display:flex;flex-direction:column;gap:10px}
+.sol.a{border-top:5px solid var(--ok)}.sol.b{border-top:5px solid var(--hi)}
+.sol h3{margin:0;font-size:17px}
+.sol .tagl{font-size:11.5px;font-weight:700;letter-spacing:.05em;text-transform:uppercase}
+.sol.a .tagl{color:var(--ok)}.sol.b .tagl{color:var(--hi)}
+.cond{display:flex;flex-direction:column;gap:6px;font-size:14px}
+.cond .c{background:var(--qbg);border:1px dashed var(--qline);border-radius:6px;padding:6px 10px}
+.cond .c b{color:var(--q);font-family:var(--mono);font-size:12.5px;margin-right:4px}
+.why{font-size:14px;color:var(--muted)}
+.why b{color:var(--fg)}
+.mid{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:12px 16px;font-size:14px;color:var(--muted)}
+.mid b{color:var(--fg)}
+/* onglets */
+.tabs{display:flex;gap:8px;flex-wrap:wrap;border-bottom:1px solid var(--line)}
+.tab{font:inherit;font-weight:600;font-size:14.5px;background:none;border:0;border-bottom:3px solid transparent;color:var(--muted);padding:8px 12px;cursor:pointer}
+.tab[aria-selected="true"].ta{color:var(--ok);border-color:var(--ok)}
+.tab[aria-selected="true"].tb{color:var(--hi);border-color:var(--hi)}
+.tab:focus-visible{outline:2px solid var(--q);outline-offset:2px}
+.panel{display:flex;flex-direction:column;gap:22px}
+/* flux */
+.flow{display:flex;flex-wrap:wrap;align-items:stretch;gap:8px}
+.node{flex:1 1 140px;min-width:0;padding:12px 14px;border-radius:8px;background:var(--panel);border:1px solid var(--line)}
+.node b{display:block;font-size:14px}.node span{color:var(--muted);font-size:12.5px}
+.node.ds{border-top:4px solid var(--ds)}.node.de{border-top:4px solid var(--de)}.node.pr{border-top:4px solid var(--pr)}.node.src,.node.bi{border-top:4px solid var(--muted)}.node.hi{border-top:4px solid var(--hi);background:var(--hibg)}
+.arrow{align-self:center;color:var(--muted);font-size:18px}
+.legend{display:flex;flex-wrap:wrap;gap:16px;font-size:13px;color:var(--muted)}
+.legend i{display:inline-block;width:12px;height:12px;border-radius:3px;margin-right:6px;vertical-align:-1px}
+/* projets / étapes */
+.project{display:flex;flex-direction:column;gap:10px}
+.phead{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;padding-bottom:6px;border-bottom:2px solid currentColor}
+.phead small{color:var(--muted);font-size:13px;font-weight:400}
+.p-or{color:var(--or)}.p-ds{color:var(--ds)}.p-de{color:var(--de)}.p-pr{color:var(--pr)}.p-hi{color:var(--hi)}
+.step{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:12px;align-items:start}
+.step.solo{grid-template-columns:minmax(0,1fr)}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:14px 16px;display:grid;grid-template-columns:44px minmax(0,1fr);gap:12px}
+.card.new{background:var(--hibg);border-color:var(--hi)}
+.num{font-family:var(--mono);font-weight:500;font-size:13px;width:36px;height:36px;border-radius:50%;display:grid;place-items:center;color:var(--panel)}
+.p-or .num{background:var(--or)}.p-ds .num{background:var(--ds)}.p-de .num{background:var(--de)}.p-pr .num{background:var(--pr)}.p-hi .num{background:var(--hi)}
+.card h3{margin:0 0 4px;font-size:15.5px;color:var(--fg)}
+.card ul{margin:6px 0 0;padding-left:18px;color:var(--muted);font-size:13.5px}
+.card li{margin:2px 0}
+.stop{display:inline-block;margin-top:8px;font-size:12.5px;color:var(--stop);font-weight:600}
+.badge{display:inline-block;font-size:10.5px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;border-radius:4px;padding:1px 6px;margin-left:6px;vertical-align:2px}
+.b-new{background:var(--hi);color:var(--panel)}.b-chg{border:1px solid var(--hi);color:var(--hi)}.b-once{border:1px solid var(--line);color:var(--muted)}
+.decisions{display:flex;flex-direction:column;gap:8px}
+.dec{background:var(--qbg);border:1px dashed var(--qline);border-radius:8px;padding:10px 12px;font-size:13.5px}
+.dec .qt{display:flex;gap:8px;align-items:baseline;margin-bottom:6px}
+.qid{font-family:var(--mono);font-weight:500;font-size:12px;color:var(--q);border:1px solid var(--q);border-radius:4px;padding:0 5px;white-space:nowrap}
+.dec .qt b{font-weight:600}
+.opt{display:grid;grid-template-columns:auto minmax(0,1fr);gap:4px 8px;margin:0}
+.opt dt{font-weight:600}
+.opt dd{margin:0;color:var(--muted)}
+.def{font-size:10.5px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--ok);margin-left:4px;white-space:nowrap}
+.arch{background:var(--panel);border-color:var(--line)}
+.arch .qid{color:var(--muted);border-color:var(--muted)}
+.note{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:14px 16px;color:var(--muted);font-size:13.5px}
+.note b{color:var(--fg)}
+@media (max-width:760px){.step,.choose{grid-template-columns:minmax(0,1fr)}.arrow{display:none}}
+</style>
+
+<div class="wrap">
+  <header style="display:flex;flex-direction:column;gap:8px">
+    <h1>Conception COR Phase 2 — traitement mensuel</h1>
+    <p class="lead">Chaque mois, la photo DCP du mois M recalcule et remplace les derniers mois d'émission du Data Product (« Annule &amp; Remplace ») ; les mois plus anciens restent figés. Deux solutions sont possibles selon les réponses du métier. Marché et IBL : table RAW <code>DTM_T_MARCHE_IBL_CTR</code> dans les deux cas.</p>
+  </header>
+
+  <!-- CHOIX -->
+  <section style="display:flex;flex-direction:column;gap:12px">
+    <h2 style="color:var(--q)">Quelle solution choisir ?</h2>
+    <div class="choose">
+      <div class="sol a">
+        <span class="tagl">Solution par défaut</span>
+        <h3>A · Lire directement la photo DCP du mois</h3>
+        <div class="cond">
+          <p>On fait la solution A <b>si les deux conditions sont validées</b> :</p>
+          <div class="c"><b>X · Q1</b>Un échec arrive au plus tard 5 mois après le prélèvement.</div>
+          <div class="c"><b>Y · Q2</b>Un nouveau prélèvement sur une facture arrive au plus tard 15 mois après le premier (ou bien il démarre un nouveau groupe).</div>
+        </div>
+        <p class="why"><b>Car</b> la photo du mois contient alors tout ce qu'il faut pour recalculer les 6 derniers mois : 6 mois d'échecs et 15 mois de prélèvements. Pas de table en plus, chaque run est indépendant, c'est la solution la plus simple. <b>Charge : celle du chiffrage v5.</b></p>
+      </div>
+      <div class="sol b">
+        <span class="tagl">Si les délais sont longs</span>
+        <h3>B · Ajouter notre propre couche historique</h3>
+        <div class="cond">
+          <p>On fait la solution B <b>si X et Y ne sont validées ni l'une ni l'autre</b>, ou si :</p>
+          <div class="c"><b>Z · DCP</b>DCP ne garantit pas par écrit la conservation des photos.</div>
+          <div class="c"><b>W · Métier</b>Les règles métier risquent de changer souvent (recalculs fréquents).</div>
+        </div>
+        <p class="why"><b>Car</b> la photo du mois ne suffit plus : il faudrait relire jusqu'à 5 anciennes photos à chaque run. Une couche historique tenue par nous (Parquet sur S3) garde tous les échecs et 4 ans de prélèvements : le calcul lit une seule source, rapide, et l'historique ne dépend plus de DCP. <b>Charge : +3 à 5 jours (estimation).</b></p>
+      </div>
+    </div>
+    <div class="mid"><b>Cas intermédiaire : une seule des conditions X ou Y n'est pas validée.</b> On garde la solution A et on relit seulement l'ancienne photo utile : les échecs de la photo d'il y a 6 mois (si X tombe, +1 à 2 j), ou la liste des prélèvements des photos d'il y a 15, 30 et 45 mois (si Y tombe, +0,5 j). Ces cas sont indiqués à l'étape 2 de la solution A.</div>
+  </section>
+
+  <div class="tabs" role="tablist">
+    <button class="tab ta" role="tab" id="tab-a" aria-controls="solution-a" aria-selected="true">Solution A · photo du mois</button>
+    <button class="tab tb" role="tab" id="tab-b" aria-controls="solution-b" aria-selected="false">Solution B · avec couche historique</button>
+  </div>
+
+  <div class="legend">
+    <span><i style="background:var(--or)"></i>Orchestration</span>
+    <span><i style="background:var(--ds)"></i>Projet DATASET</span>
+    <span><i style="background:var(--hi)"></i>Couche historique (solution B)</span>
+    <span><i style="background:var(--de)"></i>Projet DESIGN</span>
+    <span><i style="background:var(--pr)"></i>Projet PRODUCT</span>
+    <span><i style="background:var(--qbg);border:1px dashed var(--qline)"></i>Question au métier · « par défaut » = choix appliqué tant qu'il n'a pas répondu</span>
+  </div>
+
+  <!-- ================= SOLUTION A ================= -->
+  <div class="panel" id="solution-a" role="tabpanel" aria-labelledby="tab-a">
+    <section class="flow" aria-label="Vue d'ensemble solution A">
+      <div class="node src"><b>DCP</b><span>photo du mois · 6 tables TRUSTED + 1 table RAW</span></div><div class="arrow">→</div>
+      <div class="node ds"><b>01_COR_DATASET</b><span>lecture, contrôle, filtres</span></div><div class="arrow">→</div>
+      <div class="node de"><b>02_COR_DESIGN</b><span>jointures, règles 1 à 12, fenêtre</span></div><div class="arrow">→</div>
+      <div class="node pr"><b>03_COR_PRODUCT</b><span>DETAILS + KPI · PostgreSQL</span></div><div class="arrow">→</div>
+      <div class="node bi"><b>Power BI</b><span>rafraîchi par le métier</span></div>
+    </section>
+
+    <section class="project p-or"><div class="phead"><h2>Orchestration</h2><small>scénario mensuel Dataiku</small></div>
+      <div class="step"><div class="card"><div class="num">1</div><div><h3>Déclencher le run mensuel</h3><ul><li>Variable <code>mois_photo</code> = mois M à traiter.</li><li>Enchaîne DATASET → DESIGN → PRODUCT, comme en phase 1.</li></ul></div></div>
+        <div class="decisions"><div class="dec"><div class="qt"><span class="qid">Q9</span><b>Date de disponibilité des chiffres</b></div><dl class="opt"><dt>Après le 8 <span class="def">par défaut</span></dt><dd>Déclencheur à date fixe, après le 7.</dd><dt>Avant le 7</dt><dd>Vérifier chaque jour l'arrivée de la photo + engagement de date de DCP.</dd></dl></div></div></div>
+    </section>
+
+    <section class="project p-ds"><div class="phead"><h2>01_COR_DATASET</h2><small>données DCP</small></div>
+      <div class="step"><div class="card"><div class="num">2</div><div><h3>Lire la photo DCP du mois M</h3><ul><li>Datasets partitionnés par <b>pays</b> et <b>mois d'arrêté</b>.</li><li>6 tables TRUSTED : prélèvements (15 mois), échecs (6 mois), contrats.</li><li>1 table RAW : marché et IBL (<code>DTM_T_MARCHE_IBL_CTR</code>).</li><li>Seules les colonnes utiles sont gardées.</li></ul></div></div>
+        <div class="decisions">
+          <div class="dec"><div class="qt"><span class="qid">Q1</span><b>Un échec peut-il arriver après 5 mois ?</b></div><dl class="opt"><dt>Non <span class="def">par défaut</span></dt><dd>La photo M suffit.</dd><dt>Oui</dt><dd>Lire aussi les échecs de la photo M-6 (+1 à 2 j).</dd></dl></div>
+          <div class="dec"><div class="qt"><span class="qid">Q2</span><b>Prélèvement suivant après 15 mois, même groupe ?</b></div><dl class="opt"><dt>Non <span class="def">par défaut</span></dt><dd>La photo M suffit.</dd><dt>Oui</dt><dd>Lire aussi 2 tables des photos M-15, M-30, M-45 (+0,5 j).</dd><dt>Oui aux deux</dt><dd>Passer à la solution B.</dd></dl></div>
+        </div></div>
+      <div class="step solo"><div class="card"><div class="num">3</div><div><h3>Contrôler que la photo est complète</h3><ul><li>7 tables × 7 pays présentes et non vides.</li><li>Date de dépôt lue dans le nom du fichier pour repérer un redépôt.</li></ul><span class="stop">Incomplet → arrêt + alerte, rien n'est écrit</span></div></div></div>
+      <div class="step solo"><div class="card"><div class="num">4</div><div><h3>Filtrer</h3><ul><li>Enlever les lignes supprimées dans SIELE (<code>TECH_UPDATE_TYPE_TRUSTED = 'L'</code>).</li><li>Garder les prélèvements (<code>DIRECT_DEBIT</code>), entrants (<code>CREDIT</code>), sur facture de loyer (<code>FLL…</code>).</li><li>Marché / IBL : une ligne par contrat, la plus récente.</li></ul></div></div></div>
+    </section>
+
+    <section class="project p-de"><div class="phead"><h2>02_COR_DESIGN</h2><small>règles métier · PySpark · 1 flux pour les 7 pays</small></div>
+      <div class="step"><div class="card"><div class="num">5</div><div><h3>Joindre les tables</h3><ul><li>Partir de la ventilation : 1 ligne par prélèvement × facture × contrat × lot.</li><li>Ajouter montant, date, périodicité, marché, IBL (dernière valeur connue, figée quand le mois sort de la fenêtre).</li></ul></div></div>
+        <div class="decisions"><div class="dec arch"><div class="qt"><span class="qid">À vérifier</span><b>Clé de la table RAW marché / IBL</b></div><dl class="opt"><dt>Pays + contrat</dt><dd>Si la table a une colonne pays ou si la photo RAW est rangée par pays.</dd><dt>Contrat seul</dt><dd>Sinon (mapping actuel) : vérifier qu'aucun contrat n'existe dans 2 pays.</dd></dl></div></div></div>
+      <div class="step solo"><div class="card"><div class="num">6</div><div><h3>Ajouter les échecs (règles 1 à 3)</h3><ul><li>Motif, libellé, date de l'échec.</li></ul></div></div></div>
+      <div class="step"><div class="card"><div class="num">7</div><div><h3>Calculer groupe, ordre et date du DD initial (règles 4 à 6)</h3><ul><li>Prélèvements précédents d'une facture cherchés dans la photo, jamais dans le Data Product.</li><li>1 = DD initial, 2 = NDD1, 3 = NDD2.</li></ul></div></div>
+        <div class="decisions">
+          <div class="dec"><div class="qt"><span class="qid">Q4</span><b>Le groupe se définit par…</b></div><dl class="opt"><dt>Facture <span class="def">par défaut</span></dt><dd>Règle 5 et présentations.</dd><dt>Facture + lot</dt><dd>Règle 4 : seule la clé change.</dd></dl></div>
+          <div class="dec"><div class="qt"><span class="qid">Q5</span><b>Facture jamais prélevée dans un re-prélèvement</b></div><dl class="opt"><dt>DD initial <span class="def">par défaut</span></dt><dd>Règle 5, facture par facture.</dd><dt>NDD1 / non comptée</dt><dd>Cas particulier à coder (slide 22).</dd></dl></div>
+        </div></div>
+      <div class="step solo"><div class="card"><div class="num">8</div><div><h3>Calculer les 6 indicateurs (règles 7 à 12)</h3><ul><li>DD initial / NDD1 / NDD2, émis ou en échec. Au-delà de 3 tentatives : non compté.</li></ul></div></div></div>
+      <div class="step solo"><div class="card"><div class="num">9</div><div><h3>Garder la fenêtre de recalcul</h3><ul><li>Lignes émises de M-5 à M (6 mois ; plus si un échec peut arriver après 5 mois).</li><li>Colonnes de traçabilité : mois de la photo, date du run.</li></ul></div></div></div>
+    </section>
+
+    <section class="project p-pr"><div class="phead"><h2>03_COR_PRODUCT</h2><small>PostgreSQL · lu par Power BI</small></div>
+      <div class="step solo"><div class="card"><div class="num">10</div><div><h3>Écrire en zone de préparation et contrôler</h3><ul><li>Écriture dans <code>DETAILS_TMP</code>, invisible pour Power BI.</li><li>Pas de doublon, colonnes obligatoires remplies, volumes comparés au run précédent.</li></ul><span class="stop">Contrôle KO → arrêt + alerte, rien n'est publié</span></div></div></div>
+      <div class="step solo"><div class="card"><div class="num">11</div><div><h3>Publier DETAILS en une transaction</h3><ul><li>Supprimer les mois de la fenêtre, insérer ceux de <code>DETAILS_TMP</code>. Tout ou rien.</li><li>Relancer le run donne le même résultat.</li></ul></div></div></div>
+      <div class="step"><div class="card"><div class="num">12</div><div><h3>Calculer et publier les KPI</h3><ul><li>SQL depuis DETAILS, 7 axes (mois du DD initial, pays, motif, IBL, marché, plage de montant, jour du mois).</li><li>Annule &amp; Remplace des mois ouverts via <code>KPI_TMP</code>.</li></ul></div></div>
+        <div class="decisions">
+          <div class="dec"><div class="qt"><span class="qid">Q6</span><b>Plage de montant et jour du mois</b></div><dl class="opt"><dt>Chaque ligne <span class="def">par défaut</span></dt><dd>Mapping KPI actuel.</dd><dt>DD initial / total</dt><dd>2 colonnes en plus, ou somme par prélèvement.</dd></dl></div>
+          <div class="dec"><div class="qt"><span class="qid">Q7</span><b>Taux de succès</b></div><dl class="opt"><dt>1 − échecs / émis <span class="def">par défaut</span></dt><dd>Une ligne de SQL.</dd></dl></div>
+          <div class="dec"><div class="qt"><span class="qid">Q8</span><b>Signaler les mois provisoires ?</b></div><dl class="opt"><dt>Non <span class="def">par défaut</span></dt><dd>Rien.</dd><dt>Oui</dt><dd>Colonne « provisoire / définitif » + visuel Power BI.</dd></dl></div>
+        </div></div>
+      <div class="step solo"><div class="card"><div class="num">13</div><div><h3>Purger au-delà de 4 ans</h3><ul><li>DETAILS et KPI sur 4 ans glissants.</li></ul></div></div></div>
+      <div class="step"><div class="card"><div class="num">14</div><div><h3>Historique antérieur à février 2026 <span class="badge b-once">une seule fois</span></h3><ul><li>Première photo DCP : juillet 2026 → données phase 2 à partir de février 2026.</li></ul></div></div>
+        <div class="decisions"><div class="dec"><div class="qt"><span class="qid">Q3</span><b>Profondeur au démarrage</b></div><dl class="opt"><dt>6 mois <span class="def">par défaut</span></dt><dd>Note d'historisation : grandit jusqu'à 4 ans.</dd><dt>Reprise phase 1</dt><dd>Copie des KPI phase 1 + colonne SOURCE.</dd></dl></div></div></div>
+    </section>
+
+    <section class="project p-or"><div class="phead"><h2>Orchestration</h2><small>fin de run</small></div>
+      <div class="step solo"><div class="card"><div class="num">15</div><div><h3>Journaliser et prévenir</h3><ul><li>Journal : mois de la photo, dates de dépôt, volumes, statut.</li><li>Message de succès ou d'échec ; le métier rafraîchit Power BI.</li></ul></div></div></div>
+    </section>
+
+    <div class="note"><b>Démarrage et reconstruction.</b> On rejoue les photos de juillet à septembre 2026 dans l'ordre. Chaque run ne dépend que des photos DCP : on peut rejouer n'importe quel mois, dans n'importe quel ordre.</div>
+  </div>
+
+  <!-- ================= SOLUTION B ================= -->
+  <div class="panel" id="solution-b" role="tabpanel" aria-labelledby="tab-b" hidden>
+    <section class="flow" aria-label="Vue d'ensemble solution B">
+      <div class="node src"><b>DCP</b><span>photo du mois · 6 tables TRUSTED + 1 table RAW</span></div><div class="arrow">→</div>
+      <div class="node ds"><b>01_COR_DATASET</b><span>lecture, contrôle, filtres</span></div><div class="arrow">→</div>
+      <div class="node hi"><b>Couche historique</b><span>prélèvements 4 ans + tous les échecs · Parquet S3</span></div><div class="arrow">→</div>
+      <div class="node de"><b>02_COR_DESIGN</b><span>lit la couche, pas la photo</span></div><div class="arrow">→</div>
+      <div class="node pr"><b>03_COR_PRODUCT</b><span>DETAILS + KPI · PostgreSQL</span></div><div class="arrow">→</div>
+      <div class="node bi"><b>Power BI</b><span>inchangé</span></div>
+    </section>
+    <p class="lead" style="font-size:14px">En violet : ce qui est <b>nouveau</b> ou <b>modifié</b> par rapport à la solution A. Les étapes sans badge sont identiques.</p>
+
+    <section class="project p-or"><div class="phead"><h2>Orchestration</h2><small>scénario mensuel Dataiku</small></div>
+      <div class="step"><div class="card"><div class="num">1</div><div><h3>Déclencher le run mensuel</h3><ul><li>Enchaîne DATASET → couche historique → DESIGN → PRODUCT.</li></ul></div></div>
+        <div class="decisions"><div class="dec"><div class="qt"><span class="qid">Q9</span><b>Date de disponibilité des chiffres</b></div><dl class="opt"><dt>Après le 8 <span class="def">par défaut</span></dt><dd>Déclencheur à date fixe, après le 7.</dd><dt>Avant le 7</dt><dd>Vérifier chaque jour l'arrivée de la photo.</dd></dl></div></div></div>
+    </section>
+
+    <section class="project p-ds"><div class="phead"><h2>01_COR_DATASET</h2><small>données DCP</small></div>
+      <div class="step solo"><div class="card"><div class="num">2</div><div><h3>Lire la photo DCP du mois M</h3><ul><li>Photo M seulement, jamais d'anciennes photos (sauf pour reconstruire la couche).</li></ul></div></div></div>
+      <div class="step solo"><div class="card"><div class="num">3</div><div><h3>Contrôler que la photo est complète</h3><span class="stop">Incomplet → arrêt + alerte, rien n'est écrit</span></div></div></div>
+      <div class="step solo"><div class="card"><div class="num">4</div><div><h3>Filtrer</h3><ul><li>Mêmes filtres que la solution A.</li></ul></div></div></div>
+    </section>
+
+    <section class="project p-hi"><div class="phead"><h2>Couche historique</h2><small>tenue par nous · Parquet sur S3</small></div>
+      <div class="step solo"><div class="card new"><div class="num">5</div><div><h3>Mettre à jour l'historique des prélèvements <span class="badge b-new">nouveau</span></h3><ul><li>Rangé par mois d'émission.</li><li>Les 15 derniers mois sont remplacés depuis la photo M ; les mois plus anciens sont gardés (4 ans).</li></ul></div></div></div>
+      <div class="step solo"><div class="card new"><div class="num">6</div><div><h3>Mettre à jour l'historique des échecs <span class="badge b-new">nouveau</span></h3><ul><li>Rangé par mois de l'échec.</li><li>Les 6 derniers mois sont remplacés ; les plus anciens sont gardés. Un échec tardif n'est donc jamais perdu.</li></ul></div></div></div>
+      <div class="step"><div class="card new"><div class="num">7</div><div><h3>Contrôler la couche <span class="badge b-new">nouveau</span></h3><ul><li>Volumes des mois remplacés comparés à la photo ; pas de doublon.</li></ul><span class="stop">Écart → arrêt + alerte</span></div></div>
+        <div class="decisions"><div class="dec arch"><div class="qt"><span class="qid">Condition</span><b>Sauvegarde</b></div><dl class="opt"><dt>Obligatoire</dt><dd>Si DCP purge un jour ses photos, la couche devient la seule copie de l'historique.</dd></dl></div></div></div>
+    </section>
+
+    <section class="project p-de"><div class="phead"><h2>02_COR_DESIGN</h2><small>règles métier · PySpark</small></div>
+      <div class="step"><div class="card"><div class="num">8</div><div><h3>Joindre les tables <span class="badge b-chg">modifié</span></h3><ul><li>Prélèvements lus dans la couche historique ; contrats, marché et IBL lus dans la photo M.</li></ul></div></div>
+        <div class="decisions"><div class="dec arch"><div class="qt"><span class="qid">À vérifier</span><b>Clé de la table RAW marché / IBL</b></div><dl class="opt"><dt>Pays + contrat</dt><dd>Si possible.</dd><dt>Contrat seul</dt><dd>Sinon.</dd></dl></div></div></div>
+      <div class="step solo"><div class="card"><div class="num">9</div><div><h3>Ajouter les échecs (règles 1 à 3) <span class="badge b-chg">modifié</span></h3><ul><li>Depuis l'historique des échecs : quel que soit le délai de l'échec.</li></ul></div></div></div>
+      <div class="step"><div class="card"><div class="num">10</div><div><h3>Calculer groupe, ordre et date du DD initial <span class="badge b-chg">modifié</span></h3><ul><li>Prélèvements précédents cherchés dans l'historique des prélèvements (4 ans), jamais dans le Data Product.</li></ul></div></div>
+        <div class="decisions">
+          <div class="dec"><div class="qt"><span class="qid">Q4</span><b>Groupe par facture ou facture + lot</b></div><dl class="opt"><dt>Facture <span class="def">par défaut</span></dt><dd>Seule la clé change.</dd></dl></div>
+          <div class="dec"><div class="qt"><span class="qid">Q5</span><b>Facture jamais prélevée dans un re-prélèvement</b></div><dl class="opt"><dt>DD initial <span class="def">par défaut</span></dt><dd>Sinon cas particulier à coder.</dd></dl></div>
+        </div></div>
+      <div class="step solo"><div class="card"><div class="num">11</div><div><h3>Calculer les 6 indicateurs (règles 7 à 12)</h3></div></div></div>
+      <div class="step solo"><div class="card"><div class="num">12</div><div><h3>Garder la fenêtre de recalcul <span class="badge b-chg">modifié</span></h3><ul><li>Délai max d'un échec + 1 mois (réponse à Q1), au lieu de 6 mois.</li></ul></div></div></div>
+    </section>
+
+    <section class="project p-pr"><div class="phead"><h2>03_COR_PRODUCT</h2><small>PostgreSQL · identique à la solution A</small></div>
+      <div class="step solo"><div class="card"><div class="num">13</div><div><h3>Écrire en zone de préparation, contrôler, publier DETAILS en une transaction</h3><span class="stop">Contrôle KO → arrêt + alerte, rien n'est publié</span></div></div></div>
+      <div class="step"><div class="card"><div class="num">14</div><div><h3>Calculer et publier les KPI</h3><ul><li>Mois de KPI ouverts = durée max d'un groupe + 1 (réponse à Q2).</li></ul></div></div>
+        <div class="decisions"><div class="dec"><div class="qt"><span class="qid">Q6 · Q7 · Q8</span><b>Mêmes choix que la solution A</b></div><dl class="opt"><dt>Voir A</dt><dd>Plage de montant, taux de succès, mois provisoires.</dd></dl></div></div></div>
+      <div class="step solo"><div class="card"><div class="num">15</div><div><h3>Purger au-delà de 4 ans <span class="badge b-chg">modifié</span></h3><ul><li>DETAILS, KPI <b>et la couche historique</b>.</li></ul></div></div></div>
+      <div class="step"><div class="card"><div class="num">16</div><div><h3>Historique antérieur à février 2026 <span class="badge b-once">une seule fois</span></h3></div></div>
+        <div class="decisions"><div class="dec"><div class="qt"><span class="qid">Q3</span><b>Profondeur au démarrage</b></div><dl class="opt"><dt>6 mois <span class="def">par défaut</span></dt><dd>Ou reprise des KPI phase 1.</dd></dl></div></div></div>
+    </section>
+
+    <section class="project p-or"><div class="phead"><h2>Orchestration</h2><small>fin de run</small></div>
+      <div class="step solo"><div class="card"><div class="num">17</div><div><h3>Journaliser et prévenir</h3></div></div></div>
+    </section>
+
+    <div class="note"><b>Démarrage et reconstruction.</b> On rejoue les photos de juillet à septembre 2026 dans l'ordre pour remplir la couche, puis on calcule le Data Product. Pour reconstruire : d'abord la couche à partir des photos, ensuite le Data Product à partir de la couche. Si une règle métier change, seul le Data Product est recalculé, à partir de la couche : c'est rapide.</div>
+  </div>
+</div>
+
+<script>
+(function(){
+  var tabs=[document.getElementById('tab-a'),document.getElementById('tab-b')];
+  var panels=[document.getElementById('solution-a'),document.getElementById('solution-b')];
+  function show(i){tabs.forEach(function(t,k){t.setAttribute('aria-selected',k===i?'true':'false');panels[k].hidden=k!==i;});}
+  tabs.forEach(function(t,i){t.addEventListener('click',function(){show(i);});});
+  if(location.hash==='#solution-b')show(1);
+})();
+</script>
+
+</body></html>
