@@ -1,0 +1,67 @@
+Bonjour à tous,
+
+Pour finaliser la conception de l'historisation du Data Product COR (phase 2), nous avons besoin de votre validation sur la solution ci-dessous et de vos réponses à 9 questions. Nous avons relu les specs (mappings DETAILS et KPI), les présentations du 13/05 et du 21/05 et la note d'historisation : ces questions sont celles dont la réponse n'y figure pas ou y est contradictoire. Les règles métier restent inchangées : seule la façon de les calculer change.
+
+1. CE QUE NOUS NE FERONS PAS : LIRE LE DATA PRODUCT POUR LE CALCULER
+
+Les règles 4 à 6 (groupe, ordre de tentative, date du prélèvement initial) indiquent d'aller chercher les prélèvements précédents d'une facture « dans la table DETAILS elle-même ». Selon les bonnes pratiques data, un Data Product ne doit pas servir de source à son propre calcul :
+- Une erreur sur un mois se recopierait automatiquement dans tous les mois suivants.
+- Il serait impossible de recalculer un mois seul : après un incident, il faudrait rejouer tous les mois un par un, dans l'ordre.
+- Le résultat dépendrait de lui-même, ce qui le rend plus difficile à contrôler et à auditer.
+- La pratique reconnue est de toujours recalculer à partir de sources qui ne changent pas.
+
+2. CE QUE NOUS PROPOSONS : LIRE UNIQUEMENT LES PHOTOS DCP
+
+- Chaque mois, nous partons de la photo DCP du mois. Elle contient 15 mois de prélèvements et 6 mois d'échecs.
+- Pour retrouver les prélèvements précédents d'une facture, nous lisons si besoin les photos DCP précédentes, jamais le Data Product.
+- Les 6 derniers mois sont recalculés et remplacés à chaque run, et les mois plus anciens sont figés. C'est le principe « Annule & Remplace » de la note d'historisation.
+
+3. PRÉREQUIS ET CONDITIONS DE CETTE SOLUTION
+
+a) DCP conserve toutes les photos mensuelles sans limite de durée et ne les modifie pas (un redépôt corrigé remplace l'ancien fichier). Nous demanderons un engagement écrit à DCP.
+b) Le contenu des photos est conforme à la présentation du 13/05 : prélèvements sur 15 mois glissants, échecs sur 6 mois glissants, contrats à fin de mois.
+c) Les photos sont déposées entre le 1er et le 7 du mois. Le traitement ne peut donc avoir lieu qu'après le 7.
+d) La première photo disponible est celle de juillet 2026. Les données phase 2 commencent donc en février 2026.
+e) Les chiffres des 6 derniers mois restent provisoires : ils peuvent évoluer d'un mois à l'autre.
+
+4. QUESTIONS
+
+Une réponse courte suffit pour chaque question.
+
+A. Profondeur d'historique et fenêtre de recalcul
+
+Q1. Quel est le délai maximum entre l'émission d'un prélèvement et l'enregistrement de son échec ? Les documents indiquent « environ 3 mois » (présentation du 21/05, slide 6, et note d'historisation), mais on nous a aussi parlé de 5 mois.
+→ Réponse attendue : nombre de mois maximum.
+
+Q2. Quel est le délai maximum entre le premier prélèvement d'une facture et son dernier re-prélèvement ? Un nouveau prélèvement peut-il arriver plus de 15 mois après le premier prélèvement de la même facture ? Si oui, doit-il être rattaché au groupe existant (tentative suivante) ou démarrer un nouveau groupe (compté comme un prélèvement initial) ?
+→ Réponse attendue : nombre de mois maximum ; oui / non ; « rattaché » ou « nouveau groupe ».
+
+Q3. La note d'historisation prévoit un historique de 6 mois au démarrage, qui grandit chaque mois jusqu'à 4 ans. Souhaitez-vous plutôt disposer de 4 ans dès le démarrage, en reprenant les KPI de la phase 1 pour les mois antérieurs à février 2026 ? Attention : ces KPI ont été calculés avec l'ancienne logique de comptage (estimée), ce qui crée une rupture de série en février 2026.
+→ Réponse attendue : « 6 mois au démarrage » ou « reprise phase 1 » ; si reprise : faut-il afficher l'origine des chiffres ? Et jusqu'à quelle date la phase 1 doit-elle tourner en parallèle pour comparaison ?
+
+B. Règles de calcul
+
+Q4. Le groupe de prélèvements se définit-il par facture seule, ou par facture + lot ? La règle 4 dit « facture + condition de financement », alors que la règle 5 et les présentations disent « facture ».
+Exemple : la facture F porte les lots L1 et L2. Le prélèvement 200 porte sur L1 seul et revient en échec. Le prélèvement 201 porte ensuite sur L2 seul. Par facture, 201 est un NDD1. Par facture + lot, 201 est un prélèvement initial.
+→ Réponse attendue : « facture » ou « facture + lot ».
+
+Q5. Quand un re-prélèvement couvre plusieurs factures, dont une jamais prélevée auparavant, comment classer cette dernière ? Dans la présentation du 13/05 (slide 22), le prélèvement 124 couvre les factures 6V12 (déjà prélevée) et 7W22 (jamais prélevée). Pour 7W22, la slide indique « groupe 121, ordre 2 » avec tous les indicateurs à 0, alors que la règle 9 voudrait « NDD1 = 1 ».
+→ Réponse attendue : pour 7W22, prélèvement initial, NDD1, ou ligne non comptée ?
+
+Q6. La plage de montant et le jour du mois sont-ils calculés sur le prélèvement initial du groupe (présentation du 13/05, slide 18) ou sur chaque prélèvement (mapping KPI) ? Et le montant à utiliser est-il celui de la ligne (ventilé par facture et lot) ou celui du prélèvement complet ?
+→ Réponse attendue : « DD initial » ou « chaque prélèvement » ; « ligne » ou « prélèvement complet ».
+
+Q7. La formule du taux de succès dans le mapping KPI est « 1 − (nb NDD / nb NDD en échec) ». Nous pensons qu'il s'agit de « 1 − (nb NDD en échec / nb NDD) ». Confirmez-vous ?
+→ Réponse attendue : confirmé / autre formule.
+
+C. Restitution
+
+Q8. Les chiffres des 6 derniers mois pouvant encore évoluer, faut-il les signaler comme provisoires dans le tableau de bord ?
+→ Réponse attendue : oui / non.
+
+Q9. À quelle date au plus tard avez-vous besoin des chiffres d'un mois ? Le traitement ne pourra démarrer qu'après le 7 du mois suivant.
+→ Réponse attendue : jour du mois.
+
+Vos réponses nous permettront de figer la conception et de lancer les développements. Merci de nous les faire parvenir avant le [date]. Nous pouvons aussi organiser un point de 30 minutes si c'est plus simple.
+
+Bien cordialement,
