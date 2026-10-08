@@ -65,3 +65,22 @@ Q9. À quelle date au plus tard avez-vous besoin des chiffres d'un mois ? Le tra
 Vos réponses nous permettront de figer la conception et de lancer les développements. Merci de nous les faire parvenir avant le [date]. Nous pouvons aussi organiser un point de 30 minutes si c'est plus simple.
 
 Bien cordialement,
+
+
+
+Q5. Un client a deux factures de loyer : la facture A, et la facture B.
+
+En juillet, on prélève la facture A. Le prélèvement revient en échec.
+Fin septembre, on fait un seul prélèvement qui reprend la facture A et qui prélève aussi la facture B, pour la première fois.
+
+Pour la facture A, c'est un 2e essai (un re-prélèvement). Pour la facture B, c'est le 1er essai.
+
+Pourquoi je pose la question : les specs se contredisent sur ce cas.
+
+La règle (mapping, règles 5 et 9) compte les prélèvements facture par facture. La facture B n'a jamais été prélevée, donc ce serait son 1er prélèvement.
+L'exemple de la présentation du 13/05 (slide 22, prélèvement 124 sur les factures 6V12 et 7W22) rattache la facture B au re-prélèvement de la facture A, mais ne la compte dans aucun indicateur.
+
+Dans les indicateurs, comment faut-il compter la partie qui concerne la facture B ?
+a) comme le 1er prélèvement de la facture B (ce que dit la règle) ;
+b) comme un re-prélèvement, comme pour la facture A ;
+c) ne pas la compter (ce que montre l'exemple).
