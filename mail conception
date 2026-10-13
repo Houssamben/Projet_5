@@ -86,14 +86,15 @@ b) comme un re-prélèvement, comme pour la facture A ;
 c) ne pas la compter (ce que montre l'exemple).
 
 
-Étape	Jours
-1	Cadrage technique et définition des échanges avec l’équipe chatbot	1,5
-2	Flow : chargement du CSV.gz (COS) vers PostgreSQL de prod, ajout des colonnes pays et identifiant nettoyé	2
-3	Index, vue, bascule au rafraîchissement, scénario d’automatisation	2
-4	Service API : endpoints identify et contract (SQL query)	1,5
-5	Tests unitaires sur le serveur de développement (client inconnu, contrat d’un autre client, données incohérentes…)	1,5
-6	Déploiement lab → prod : bundle, API Node, connexion PostgreSQL, pilote JDBC	2
-7	Sécurité (clé API) et réglage du pool de connexions	1
-8	Tests de bout en bout avec le chatbot et test de charge	2
-9	Documentation (API, exploitation) et passation	1
+	Étape	Jours
+1	Cadrage technique, définition des échanges avec le chatbot, choix des colonnes exposées (ne garder que l’utile, données personnelles)	2
+2	Base PostgreSQL de prod : schéma, utilisateur lecture seule pour l’API, utilisateur d’écriture pour le flow	1,5
+3	Flow : chargement du CSV.gz (COS) vers PostgreSQL, colonnes pays et identifiant nettoyé, typage des colonnes	2
+4	Contrôles qualité dans Dataiku : schéma du fichier entrant, nombre de lignes, doublons sur (pays, identifiant, contrat), valeurs vides, désignations incohérentes. Blocage de la mise à jour si un contrôle échoue	2,5
+5	Tables A/B, vue, bascule, index, purge de l’ancienne copie, scénario d’automatisation avec alertes en cas d’échec	2,5
+6	Service API : endpoints identify et contract, tests unitaires sur le serveur de développement	3
+7	Déploiement lab → prod : bundle, API Node, connexion, pilote JDBC, sécurité (clé API), réglage du pool de connexions	2,5
+8	Tests de bout en bout avec le chatbot, test de charge, test d’un rafraîchissement pendant des appels	2
+9	Supervision (temps de réponse, erreurs, fraîcheur des données), documentation (API, dictionnaire de données, exploitation), passation	1,5
 10	Marge pour aléas	0,5
+	Total 
