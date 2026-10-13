@@ -1,0 +1,56 @@
+Standard (A) ou comparaison des photos M et M-1 : analyse complète
+
+Hypothèses : M = mois de la photo. La photo contient 15 mois de prélèvements (émis entre M-14 et M) et 6 mois d'échecs (M-5 à M). Un échec arrive au plus 5 mois après l'émission (c'est la question Q1, encore à confirmer). Si Q1 dépasse 5 mois, toutes les bornes ci-dessous changent.
+
+1. Les deux solutions
+	Standard A	Comparaison M / M-1
+Principe	Chaque mois, on recalcule les mois d'émission M-5 à M à partir de la photo M. Les mois plus anciens sont figés.	Chaque mois, on compare les photos M et M-1 ligne par ligne et on applique les différences au Data Product (DP).
+Données lues	Photo M	Photos M et M-1
+Écriture dans le DP	Annule & Remplace en une seule transaction : on supprime M-5 à M, puis on réinsère	Insertion, mise à jour ou suppression par clé, sur tous les mois présents dans la photo
+KPI	Annule & Remplace sur les mêmes mois	Recalcul de tous les mois touchés, anciens compris
+Dépendance au DP	Aucune	Oui : pour mettre à jour une ligne figée, il faut garder ses colonnes d'échec, donc lire le DP
+Premier run	Chargement de la photo	Chargement complet, puisqu'il n'y a pas encore de photo M-1
+Conformité à la note	Conforme : « Annule & Remplace pour les 5 mois existants » et « données plus anciennes empilées »	Non conforme : elle modifie des mois que la note veut empilés
+2. Lignes présentes dans la photo M-1 mais absentes de la photo M
+Cas	Standard A	Comparaison M / M-1
+Prélèvement émis entre M-5 et M-1	Supprimé du DP par le recalcul. Les tentatives de la facture sont renumérotées.	Idem
+Prélèvement émis entre M-14 et M-6	Conservé : le mois est figé	Supprimé du DP. Mais les colonnes calculées des autres lignes (tentatives, groupes, flags) ne peuvent pas être recalculées.
+Prélèvement émis en M-15	Sortie normale de la fenêtre de 15 mois, conservé	Il faut l'exclure de la comparaison, sinon il apparaît comme une fausse suppression
+Échec du mois M-5 à M-1, prélèvement émis entre M-5 et M-1	Le prélèvement n'est plus en échec (recalcul)	Idem
+Échec du mois M-5 à M-1, prélèvement figé (émis entre M-10 et M-6)	Ignoré	Détecté, mais seulement corrigé localement
+Échec du mois M-6	Sortie normale de la fenêtre de 6 mois, conservé	Il faut l'exclure de la comparaison, sinon il apparaît comme une fausse suppression
+3. Besoins couverts
+Besoin	A	Comparaison
+Ajouts, modifications et suppressions sur M-5 à M	✅	✅
+Détection des changements tardifs sur M-14 à M-6	❌ (✅ si on ajoute la surveillance proposée en section 8)	✅
+Recalcul exact des mois anciens modifiés	❌	⚠️ Partiel : les échecs d'avant M-5 ne sont plus dans la photo, donc la correction reste locale et le DP mélange des états venant de photos différentes
+Changements sur M-15 et plus anciens	❌	❌ (absents de la photo)
+Distinguer une vraie suppression d'une photo incomplète	Contrôle de complétude nécessaire	Idem
+KPI déjà publiés stables	✅ Après M-5	❌ Ils peuvent changer à tout moment dans Power BI
+Journal des changements	À construire (journal plus contrôle des disparitions)	✅ Intégré
+4. Avantages et inconvénients
+	Standard A	Comparaison M / M-1
+Avantages	Conforme à la note et aux bonnes pratiques (réécriture complète de la partition, pas de dépendance au passé). Relance sans effet de bord. Pas besoin de clé unique. Chaque mois ne dépend que d'une seule photo. KPI stables. Simple à tester.	Détecte les changements tardifs. Journal des changements intégré.
+Inconvénients	Les changements tardifs sur les mois figés sont ignorés, donc les mois figés peuvent diverger de la photo actuelle.	Non conforme à la note. Dépend de l'état du DP. Correction seulement locale sur les mois anciens. KPI instables. Besoin d'une clé stable. Faussée si DCP redépose la photo M-1 après son traitement, sauf à garder notre propre copie, ce qui revient à la solution B. Exige d'exclure les lignes qui sortent de la fenêtre.
+5. Exploitation
+Situation	Standard A	Comparaison M / M-1
+Relance du dernier mois	Sans effet de bord	Sans effet de bord si la clé est stable, sinon doublons
+Relance d'un ancien mois	Relancer ensuite les mois suivants	Idem
+Reconstruction complète	Chaque mois est calculé à partir d'une seule photo (celle de son émission + 5 mois)	Rejouer toutes les photos dans l'ordre. Une erreur se propage aux mois suivants.
+Photo redéposée	Relancer le mois concerné	Comparaison faussée
+6. Prérequis
+	Standard A	Comparaison M / M-1
+Communs	Contrôle de complétude, seuil d'alerte sur les disparitions, journal	Idem
+En plus	—	Clé unique stable par table (non documentée dans les specs, à confirmer avec DCP). Exclusion des lignes qui sortent de la fenêtre. Suivi de la version de photo traitée.
+7. Complexité
+	Standard A	Comparaison M / M-1
+Implémentation	49,25 j (chiffrage)	+5 à 8 j (estimation), soit environ 54 à 57 j, au-dessus du plafond de 52,5 j
+Maintenance	Faible : chaque mois ne dépend que de sa photo	Élevée : l'état du DP dépend de son historique, le débogage est difficile, et les cas de redépôt et de clé sont à gérer
+8. Recommandation
+Garder la solution A.
+Ajouter une surveillance en lecture seule (+0,5 j, estimation) : comparer M et M-1 sur les mois figés, sans les lignes qui sortent de la fenêtre, et seulement alerter, sans écrire dans le DP.
+Supprimer les lignes disparues des mois figés (+1 à 1,5 j, estimation) seulement si le métier le demande par écrit, car cela contredit la note et laisse les colonnes calculées incohérentes.
+9. À confirmer avec DCP
+Une clé unique par table.
+Le filtrage des lignes supprimées sur toutes les tables.
+Le comportement en cas de redépôt d'une photo.
