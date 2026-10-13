@@ -84,3 +84,16 @@ Dans les indicateurs, comment faut-il compter la partie qui concerne la facture 
 a) comme le 1er prélèvement de la facture B (ce que dit la règle) ;
 b) comme un re-prélèvement, comme pour la facture A ;
 c) ne pas la compter (ce que montre l'exemple).
+
+
+Étape	Jours
+1	Cadrage technique et définition des échanges avec l’équipe chatbot	1,5
+2	Flow : chargement du CSV.gz (COS) vers PostgreSQL de prod, ajout des colonnes pays et identifiant nettoyé	2
+3	Index, vue, bascule au rafraîchissement, scénario d’automatisation	2
+4	Service API : endpoints identify et contract (SQL query)	1,5
+5	Tests unitaires sur le serveur de développement (client inconnu, contrat d’un autre client, données incohérentes…)	1,5
+6	Déploiement lab → prod : bundle, API Node, connexion PostgreSQL, pilote JDBC	2
+7	Sécurité (clé API) et réglage du pool de connexions	1
+8	Tests de bout en bout avec le chatbot et test de charge	2
+9	Documentation (API, exploitation) et passation	1
+10	Marge pour aléas	0,5
